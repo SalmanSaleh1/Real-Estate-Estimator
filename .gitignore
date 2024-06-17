@@ -9,3 +9,6 @@ instance/
 # Docker
 .dockerignore
 docker-compose.yml
+
+# VS Code
+.vscode/
