@@ -3,32 +3,14 @@
 {% block title %}REE{% endblock %}
 
 {% block body %}
-<div id="map" style="height: 80vh;"></div>
 
-<script>
-    var map = L.map('map').setView([23.8859, 45.0792], 6); // Set the initial view to Saudi Arabia
+<!-- Map container -->
+<div id="map"></div>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+<!-- JavaScript for the map -->
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 
-    var marker;
+<!-- CSS for styling -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-    // Function to add a marker on click
-    function onMapClick(e) {
-        // Remove the previous marker if it exists
-        if (marker) {
-            map.removeLayer(marker);
-        }
-
-        marker = L.marker(e.latlng).addTo(map)
-            .bindPopup("You clicked the map at " + e.latlng.toString())
-            .openPopup();
-    }
-
-    map.on('click', onMapClick);
-
-    // Add the geocoder control to the map
-    L.Control.geocoder().addTo(map);
-</script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 # MongoDB configurations
 HOSTNAME = "app_mongodb"
