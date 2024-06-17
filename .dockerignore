@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# Flask
+instance/
+.env
+
+# Docker
+Dockerfile
+docker-compose.yml
