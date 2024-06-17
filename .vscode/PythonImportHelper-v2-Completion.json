@@ -1,0 +1,114 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "def home():\n    return render_template('home.html')\n@app.route('/about')\ndef about():\n    return render_template('about.html')\nif __name__ == '__main__':\n    app.run(host='0.0.0.0', port=5000, debug=True)",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "about",
+        "kind": 2,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "def about():\n    return render_template('about.html')\nif __name__ == '__main__':\n    app.run(host='0.0.0.0', port=5000, debug=True)",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "app = Flask(__name__)\n# MongoDB configurations\nHOSTNAME = \"app_mongodb\"\nDATABASE_NAME = \"app_db\"\nCOLLECTION_NAME = \"app_collection\"\nclient = MongoClient(host=HOSTNAME, port=27017)\ndb = client[DATABASE_NAME][COLLECTION_NAME]\n# Homw route\n@app.route('/')\n@app.route('/home')",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "HOSTNAME",
+        "kind": 5,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "HOSTNAME = \"app_mongodb\"\nDATABASE_NAME = \"app_db\"\nCOLLECTION_NAME = \"app_collection\"\nclient = MongoClient(host=HOSTNAME, port=27017)\ndb = client[DATABASE_NAME][COLLECTION_NAME]\n# Homw route\n@app.route('/')\n@app.route('/home')\ndef home():\n    return render_template('home.html')",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_NAME",
+        "kind": 5,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "DATABASE_NAME = \"app_db\"\nCOLLECTION_NAME = \"app_collection\"\nclient = MongoClient(host=HOSTNAME, port=27017)\ndb = client[DATABASE_NAME][COLLECTION_NAME]\n# Homw route\n@app.route('/')\n@app.route('/home')\ndef home():\n    return render_template('home.html')\n@app.route('/about')",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "COLLECTION_NAME",
+        "kind": 5,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "COLLECTION_NAME = \"app_collection\"\nclient = MongoClient(host=HOSTNAME, port=27017)\ndb = client[DATABASE_NAME][COLLECTION_NAME]\n# Homw route\n@app.route('/')\n@app.route('/home')\ndef home():\n    return render_template('home.html')\n@app.route('/about')\ndef about():",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "client = MongoClient(host=HOSTNAME, port=27017)\ndb = client[DATABASE_NAME][COLLECTION_NAME]\n# Homw route\n@app.route('/')\n@app.route('/home')\ndef home():\n    return render_template('home.html')\n@app.route('/about')\ndef about():\n    return render_template('about.html')",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "src.flask_website.app",
+        "description": "src.flask_website.app",
+        "peekOfCode": "db = client[DATABASE_NAME][COLLECTION_NAME]\n# Homw route\n@app.route('/')\n@app.route('/home')\ndef home():\n    return render_template('home.html')\n@app.route('/about')\ndef about():\n    return render_template('about.html')\nif __name__ == '__main__':",
+        "detail": "src.flask_website.app",
+        "documentation": {}
+    }
+]

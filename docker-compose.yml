@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src:/root/src/
+    links:
+      - db
+    depends_on:
+      - db
+
+
+  db:
+    image: mongo:4.4  # Use the desired MongoDB version
+    hostname: "app_mongodb"  # Set the hostname as needed
