@@ -1,0 +1,29 @@
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+h1, h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1em;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.img-fluid {
+    max-width: 80%;
+    height: auto;
+    margin-top: 20px;
+}
