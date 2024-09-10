@@ -1,15 +1,71 @@
 {% extends "base.html" %}
 
-{% block title %}REE{% endblock %}
+{% block title %}Simple Google Maps Example{% endblock %}
+
+{% block head %}
+  <!-- Load Google Maps Extended Component Library -->
+  <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
+  
+  <!-- Inline CSS for Google Maps component -->
+  <style>
+    gmp-map {
+      height: 100vh; /* Adjust height to full viewport height */
+      width: 100%;
+      display: block;
+    }
+  </style>
+{% endblock %}
 
 {% block body %}
+  <!-- Google Maps API Loader -->
+  <gmpx-api-loader key="AIzaSyBPwOR3clcQsFQodzFJ09aMnoQIUQJtYKg" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
 
-<p>Home page</p>
+  <!-- Google Maps Component -->
+  <gmp-map center="40.749933,-73.98633" zoom="13">
+    <div slot="control-block-start-inline-start" class="place-picker-container">
+      <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
+    </div>
+    <gmp-advanced-marker></gmp-advanced-marker>
+  </gmp-map>
+{% endblock %}
 
-<!-- JavaScript for the map -->
-<script src="{{ url_for('static', filename='js/home.js') }}"></script>
-
-<!-- CSS for styling -->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-
+{% block scripts %}
+  <!-- JavaScript for initializing Google Maps -->
+  <script>
+    async function init() {
+      await customElements.whenDefined('gmp-map');
+      const map = document.querySelector('gmp-map');
+      const marker = document.querySelector('gmp-advanced-marker');
+      const placePicker = document.querySelector('gmpx-place-picker');
+      const infowindow = new google.maps.InfoWindow();
+      
+      map.innerMap.setOptions({
+        mapTypeControl: false
+      });
+      
+      placePicker.addEventListener('gmpx-placechange', () => {
+        const place = placePicker.value;
+        if (!place.location) {
+          window.alert("No details available for input: '" + place.name + "'");
+          infowindow.close();
+          marker.position = null;
+          return;
+        }
+        if (place.viewport) {
+          map.innerMap.fitBounds(place.viewport);
+        } else {
+          map.center = place.location;
+          map.zoom = 17;
+        }
+        marker.position = place.location;
+        infowindow.setContent(
+          `<strong>${place.displayName}</strong><br>
+           <span>${place.formattedAddress}</span>`
+        );
+        infowindow.open(map.innerMap, marker);
+      });
+    }
+    
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 {% endblock %}
