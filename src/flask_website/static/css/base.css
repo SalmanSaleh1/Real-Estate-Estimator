@@ -1,24 +1,22 @@
-/* Set a minimum height for the body to ensure content is visible */
+/* Ensure the body takes up at least the full viewport height and flex layout */
 body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin: 0; /* Remove default margin to ensure full height */
+    font-family: Arial, sans-serif; /* Set a default font for consistency */
 }
 
 /* Style the navigation bar */
 .navbar {
-    margin-bottom: 20px; /* Add some space below the navbar */
+    margin-bottom: 20px; /* Add space below the navbar */
 }
 
-/* Center the main content vertically */
+/* Style the main content container */
 .container {
-    flex: 1;
+    flex: 1; /* Allow container to grow and fill available space */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-}
-
-/* Add some padding to the main content */
-.container {
-    padding: 20px;
+    justify-content: center; /* Center content vertically */
+    padding: 20px; /* Add padding inside the container */
 }
