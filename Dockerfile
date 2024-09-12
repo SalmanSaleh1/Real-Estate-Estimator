@@ -9,7 +9,8 @@ RUN pip install -r /app/requirements.txt
 
 # Copy application code
 COPY src/ /root/src/
-WORKDIR /root/src/flask_website/
+WORKDIR /root/src/
 
 # Run the Flask app
-CMD ["python", "app.py"]
+ENTRYPOINT ["python3"]
+CMD ["flask_website/app.py"]
