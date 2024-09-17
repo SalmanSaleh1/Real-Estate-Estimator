@@ -1,0 +1,7 @@
+/* Inline CSS for Google Maps component */
+gmp-map {
+    height: 100vh; /* Adjust height to full viewport height */
+    width: 100%;
+    display: block;
+  }
+  
