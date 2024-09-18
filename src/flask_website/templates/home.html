@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Simple Google Maps{% endblock %}
+{% block title %}Simple Google Maps with Search and Filters{% endblock %}
 
 {% block head %}
   <!-- Load Google Maps Extended Component Library -->
@@ -8,9 +8,54 @@
   
   <!-- Link to external CSS for Google Maps component -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+  
+  <!-- Link to the external CSS for the home page -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
 {% block body %}
+  <!-- Search Button (Top Left) -->
+  <button class="map-btn search-btn" onclick="toggleSearchForm()">🔍</button>
+
+  <!-- Search Form (hidden initially) -->
+  <div class="search-form-container" id="searchForm">
+    <form action="/search" method="GET">
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" placeholder="Enter location" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+
+  <!-- Filter Button (Bottom Right) -->
+  <button class="map-btn filter-btn" onclick="toggleFilterForm()">⚙️</button>
+
+  <!-- Filter Form (hidden initially) -->
+  <div class="filter-form-container" id="filterForm">
+    <form action="/search" method="GET">
+      <div class="form-group">
+        <label for="min_price">Min Price:</label>
+        <input type="number" name="min_price" id="min_price" placeholder="Min Price" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="max_price">Max Price:</label>
+        <input type="number" name="max_price" id="max_price" placeholder="Max Price" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="property_type">Property Type:</label>
+        <select name="property_type" id="property_type" class="form-control">
+          <option value="house">House</option>
+          <option value="apartment">Apartment</option>
+          <option value="land">Land</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+  </div>
+
   <!-- Google Maps API Loader -->
   <gmpx-api-loader key="YOUR_GOOGLE_API_KEY" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
 
@@ -27,4 +72,17 @@
   <!-- Link to external JavaScript for initializing Google Maps -->
   <script src="{{ url_for('static', filename='js/map.js') }}"></script>
   <script src="{{ url_for('static', filename='js/geojson.js') }}"></script>
+  <script>
+    // Toggle Search Form
+    function toggleSearchForm() {
+      const searchForm = document.getElementById('searchForm');
+      searchForm.style.display = (searchForm.style.display === 'none' || searchForm.style.display === '') ? 'block' : 'none';
+    }
+
+    // Toggle Filter Form
+    function toggleFilterForm() {
+      const filterForm = document.getElementById('filterForm');
+      filterForm.style.display = (filterForm.style.display === 'none' || filterForm.style.display === '') ? 'block' : 'none';
+    }
+  </script>
 {% endblock %}
