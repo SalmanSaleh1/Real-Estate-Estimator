@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Real Estate Estimator{% endblock %}
+
+{% block head %}
+  <!-- Link to external CSS for the Estimator page -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estimator.css') }}">
+{% endblock %}
+
+{% block body %}
+  <div class="estimator-container">
+    <!-- Title of the estimator tool -->
+    <h1 class="estimator-title">Real Estate Estimator Tool</h1>
+
+    <!-- Form for inputting real estate details -->
+    <form action="/estimate" method="POST" class="estimator-form">
+      <!-- Container for two columns of form inputs -->
+      <div class="form-row">
+        <!-- Left column with two input fields -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="total_area">Total Area (sq ft):</label>
+            <input type="number" name="total_area" id="total_area" placeholder="Enter total area" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="neighborhood">Neighborhood:</label>
+            <input type="text" name="neighborhood" id="neighborhood" placeholder="Enter neighborhood" class="form-control" required>
+          </div>
+        </div>
+
+        <!-- Right column with two input fields -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" name="city" id="city" placeholder="Enter city" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="street">Street:</label>
+            <input type="text" name="street" id="street" placeholder="Enter street" class="form-control" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary">Estimate Price</button>
+    </form>
+  </div>
+{% endblock %}
