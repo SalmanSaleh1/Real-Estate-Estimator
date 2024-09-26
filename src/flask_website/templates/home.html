@@ -58,6 +58,11 @@
 
   <!-- Google Maps API Loader -->
   <gmpx-api-loader key="YOUR_GOOGLE_API_KEY" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
+  
+  <!-- Loading Indicator -->
+  <div id="loading-indicator" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+    <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
+  </div>
 
   <!-- Google Maps Component -->
   <gmp-map center="40.749933,-73.98633" zoom="13">
@@ -72,6 +77,7 @@
   <!-- Link to external JavaScript for initializing Google Maps -->
   <script src="{{ url_for('static', filename='js/map.js') }}"></script>
   <script src="{{ url_for('static', filename='js/geojson.js') }}"></script>
+  
   <script>
     // Toggle Search Form
     function toggleSearchForm() {
