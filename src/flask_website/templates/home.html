@@ -14,17 +14,20 @@
 {% endblock %}
 
 {% block body %}
-  <!-- Search Button (Top Left) -->
-  <button class="map-btn search-btn" onclick="toggleSearchForm()">🔍</button>
-
-  <!-- Search Form (hidden initially) -->
-  <div class="search-form-container" id="searchForm">
-    <form action="/search" method="GET">
-      <div class="form-group">
-        <label for="location">Location:</label>
-        <input type="text" name="location" id="location" placeholder="Enter location" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Search</button>
+  <!-- Search Button (Top Left, below the Navbar) -->
+  <div class="search-bar-container">
+    <form class="form">
+        <button>
+            <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
+                <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+        <input class="input" placeholder="Type your text" required="" type="text">
+        <button class="reset" type="reset">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
     </form>
   </div>
 
@@ -32,7 +35,7 @@
   <button class="map-btn filter-btn" onclick="toggleFilterForm()">⚙️</button>
 
   <!-- Filter Form (hidden initially) -->
-  <div class="filter-form-container" id="filterForm">
+  <div class="filter-form-container" id="filterForm" style="display: none;">
     <form action="/search" method="GET">
       <div class="form-group">
         <label for="min_price">Min Price:</label>
@@ -79,12 +82,6 @@
   <script src="{{ url_for('static', filename='js/geojson.js') }}"></script>
   
   <script>
-    // Toggle Search Form
-    function toggleSearchForm() {
-      const searchForm = document.getElementById('searchForm');
-      searchForm.style.display = (searchForm.style.display === 'none' || searchForm.style.display === '') ? 'block' : 'none';
-    }
-
     // Toggle Filter Form
     function toggleFilterForm() {
       const filterForm = document.getElementById('filterForm');

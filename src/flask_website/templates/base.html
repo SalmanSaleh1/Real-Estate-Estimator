@@ -1,58 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Title of the page, dynamically set by child templates -->
-    <title>{% block title %}Default Title{% endblock %}</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Global CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-
-    <!-- Additional CSS for child templates -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
     {% block head %}{% endblock %}
+    <title>{% block title %}Real Estate Estimator{% endblock %}</title>
 </head>
-<body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">REE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <!-- Navigation links -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('estimator') }}">Estimator Tool</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About us</a>
-                </li>
-                
-            </ul>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/"> <!-- Make the logo clickable -->
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" style="height: 50px;"> <!-- Increased height -->
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <a href="/">Home</a>
+            <a href="{{ url_for('estimator') }}">Estimator Tool</a>
+            <a href="/about">About Us</a>
         </div>
     </nav>
 
-    <!-- Main Content Container -->
     <div class="container">
         {% block body %}{% endblock %}
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Additional Scripts for child templates -->
     {% block scripts %}{% endblock %}
 </body>
+
 </html>
