@@ -158,4 +158,47 @@ margin-top: 3px;
   bottom: 20px;
   right: 20px;
   z-index: 100;
+  background-color: #fffffffa; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem; /* Increase the size */
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+.filter-btn:hover {
+  background-color: #777a7c; /* Darker blue on hover */
+}
+
+/* Pop-up window for filter options */
+.filter-form-container {
+  position: absolute;
+  bottom: 90px; /* Position it just above the button */
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 101;
+  width: 300px; /* Define width for the pop-up */
+}
+
+.filter-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-form-container label {
+  margin-bottom: 5px;
+}
+
+.filter-form-container input,
+.filter-form-container select,
+.filter-form-container button {
+  margin-bottom: 10px;
+}
+

@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body %}
-  <!-- Search Button (Top Left, below the Navbar) -->
+  <!-- Search Bar (Top Left, below the Navbar) -->
   <div class="search-bar-container">
     <form class="form">
         <button>
@@ -34,7 +34,7 @@
   <!-- Filter Button (Bottom Right) -->
   <button class="map-btn filter-btn" onclick="toggleFilterForm()">⚙️</button>
 
-  <!-- Filter Form (hidden initially) -->
+  <!-- Filter Form Pop-up (hidden initially) -->
   <div class="filter-form-container" id="filterForm" style="display: none;">
     <form action="/search" method="GET">
       <div class="form-group">
@@ -61,12 +61,12 @@
 
   <!-- Google Maps API Loader -->
   <gmpx-api-loader key="YOUR_GOOGLE_API_KEY" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
-  
-  <!-- Loading Indicator -->
-  <div id="loading-indicator" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+
+   <!-- Loading Indicator -->
+   <div id="loading-indicator" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
     <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
   </div>
-
+  
   <!-- Google Maps Component -->
   <gmp-map center="40.749933,-73.98633" zoom="13">
     <div slot="control-block-start-inline-start" class="place-picker-container">
@@ -77,15 +77,16 @@
 {% endblock %}
 
 {% block scripts %}
-  <!-- Link to external JavaScript for initializing Google Maps -->
+  <!-- External JavaScript for Google Maps -->
   <script src="{{ url_for('static', filename='js/map.js') }}"></script>
   <script src="{{ url_for('static', filename='js/geojson.js') }}"></script>
-  
+
   <script>
-    // Toggle Filter Form
+    // Toggle Filter Form Pop-up
     function toggleFilterForm() {
       const filterForm = document.getElementById('filterForm');
       filterForm.style.display = (filterForm.style.display === 'none' || filterForm.style.display === '') ? 'block' : 'none';
     }
   </script>
 {% endblock %}
+
