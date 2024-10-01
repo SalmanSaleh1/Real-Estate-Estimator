@@ -2,34 +2,39 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <!-- Set character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design: viewport settings -->
+    
+    <!-- Link to external CSS stylesheets for base, about, home, and estimator pages -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-    {% block head %}{% endblock %}
-    <title>{% block title %}Real Estate Estimator{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estimator.css') }}">
+
+    {% block head %}{% endblock %} <!-- Placeholder for additional head content from child templates -->
+    
+    <title>{% block title %}Real Estate Estimator{% endblock %}</title> <!-- Title of the webpage -->
 </head>
 
 <body>
-    <nav class="navbar">
+    <nav class="navbar"> <!-- Navigation bar for the website -->
         <div class="navbar-brand">
-            <a href="/"> <!-- Make the logo clickable -->
-                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" style="height: 50px;"> <!-- Increased height -->
+            <a href="/"> <!-- Make the logo clickable, linking to the home page -->
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" style="height: 50px;"> <!-- Logo image with specified height -->
             </a>
         </div>
-        <div class="navbar-menu">
-            <a href="/">Home</a>
-            <a href="{{ url_for('estimator') }}">Estimator Tool</a>
-            <a href="/about">About Us</a>
+        <div class="navbar-menu"> <!-- Menu items in the navbar -->
+            <a href="/">Home</a> <!-- Link to the home page -->
+            <a href="{{ url_for('estimator') }}">Estimator Tool</a> <!-- Link to the Estimator Tool page -->
+            <a href="/about">About Us</a> <!-- Link to the About Us page -->
         </div>
     </nav>
 
-    <div class="container">
-        {% block body %}{% endblock %}
+    <div class="container"> <!-- Main container for page content -->
+        {% block body %}{% endblock %} <!-- Placeholder for body content from child templates -->
     </div>
 
-    {% block scripts %}{% endblock %}
+    {% block scripts %}{% endblock %} <!-- Placeholder for additional scripts from child templates -->
 </body>
 
 </html>

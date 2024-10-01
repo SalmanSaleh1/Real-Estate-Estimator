@@ -1,29 +1,38 @@
-{% extends "base.html" %}
+{% extends "base.html" %}  <!-- Inherit the base template to maintain consistent layout -->
 
-{% block title %}About Us{% endblock %}
+{% block title %}About Us{% endblock %}  <!-- Define the title for the page -->
 
 {% block body %}
-<div class="container mt-5">
-    <h1 class="display-4 text-center mb-4">About Our Graduate Project</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Our Goal</h2>
-            <p>
-                Our goal is to enhance transparency and efficiency in real estate transactions by providing accurate property price estimations through machine learning. This helps buyers make informed decisions, saving time and ensuring fair negotiations.
-            </p>
-        </div>
+<div class="about-container">  <!-- Main container for the about section -->
+    <h1>About Our Graduate Project</h1>  <!-- Main heading for the project overview -->
+    
+    <div class="project-overview">  <!-- Container for the project overview section -->
+        <h2>Project Overview</h2>  <!-- Subheading for project details -->
+        <p>
+            Our project, titled <strong>Resolving the Real-Estate Negotiation Phase Using Machine Learning to Determine an Accurate Price</strong>, focuses on addressing a critical challenge in the Saudi Arabian real estate market—accurate property valuation. Utilizing advanced machine learning algorithms and Geographic Information System (GIS) integration, our tool is designed to provide precise and reliable price estimates by leveraging historical data from the Ministry of Justice and real-time economic indicators.
+        </p>
     </div>
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <h2>Team Members</h2>
-            <ul>
-                <li>Yazeed Asim Alramadi</li>
-                <li>Salman Saleh Alkhalifah</li>
-                <li>Mohammed Ali Aldubayyan</li>
-                <li>Abdulrrahman Alowaymir</li>
-            </ul>
-        </div>
+    
+    <div class="market-context">  <!-- Container for market context section -->
+        <h2>Market Context</h2>  <!-- Subheading for market context -->
+        <p>
+            The real estate market in Saudi Arabia, driven by ambitious growth plans under Vision 2030, has become increasingly dynamic. Accurate property pricing is vital for buyers, sellers, and financial institutions, yet current tools often lack localization and real-time data, reducing their effectiveness. Our project aims to bridge this gap, offering a user-friendly interface that enhances decision-making and transparency in the market.
+        </p>
     </div>
+    
+    <div class="team-members">  <!-- Container for team members section -->
+        <h2>Team Members</h2>  <!-- Subheading for listing team members -->
+        <ul>
+            <li>Yazeed Asim Alramadi</li>  <!-- Team member 1 -->
+            <li>Salman Saleh Alkhalifah</li>  <!-- Team member 2 -->
+            <li>Mohammed Ali Aldubayyan</li>  <!-- Team member 3 -->
+            <li>Abdulrrahman Alowaymir</li>  <!-- Team member 4 -->
+        </ul>
+    </div>
+    
+    <div class="supervisor">  <!-- Container for the supervisor section -->
+        <h2>Supervisor</h2>  <!-- Subheading for supervisor's name -->
+        <p>Dr. Ziyad Alsaeed</p>  <!-- Name of the supervisor -->
     </div>
 </div>
 {% endblock %}

@@ -1,29 +1,45 @@
-.container {
-    padding-top: 20px;
-    padding-bottom: 20px;
+.about-container {
+    margin-top: 50px; /* Space above the container */
+    padding: 20px; /* Padding inside the container for spacing */
+    background-color: #f8f9fa; /* Light background color for the container */
+    border-radius: 8px; /* Rounded corners for the container */
+    max-width: 900px; /* Maximum width of the container */
+    margin-left: auto; /* Center the container horizontally */
+    margin-right: auto; /* Center the container horizontally */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect for depth */
 }
 
-h1, h2 {
-    color: #007bff;
-    margin-bottom: 20px;
+.about-container h1 {
+    font-size: 2.5rem; /* Font size for the main title */
+    text-align: center; /* Center align the title */
+    margin-bottom: 20px; /* Space below the title */
+    color: #343a40; /* Dark grey color for the title */
 }
 
-p {
-    font-size: 1.1em;
+.about-container h2 {
+    font-size: 1.75rem; /* Font size for secondary titles */
+    margin-top: 30px; /* Space above secondary titles */
+    margin-bottom: 15px; /* Space below secondary titles */
+    color: #495057; /* Slightly lighter grey for secondary titles */
 }
 
-ul {
-    list-style-type: none;
-    padding-left: 0;
+.about-container p {
+    font-size: 1rem; /* Font size for paragraph text */
+    line-height: 1.6; /* Increase line height for better readability */
+    color: #6c757d; /* Medium grey color for paragraph text */
 }
 
-ul li {
-    font-size: 1.1em;
-    margin-bottom: 10px;
+.about-container ul {
+    list-style-type: disc; /* Use bullet points for list items */
+    padding-left: 20px; /* Indent the list from the left */
 }
 
-.img-fluid {
-    max-width: 80%;
-    height: auto;
-    margin-top: 20px;
+.about-container ul li {
+    font-size: 1rem; /* Font size for list items */
+    margin-bottom: 10px; /* Space below each list item */
+    color: #6c757d; /* Medium grey color for list items */
+}
+
+.about-container strong {
+    color: #007bff; /* Bright blue color for emphasized text */
 }
