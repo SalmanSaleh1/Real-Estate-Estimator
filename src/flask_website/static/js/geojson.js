@@ -39,26 +39,19 @@ async function loadGeoJSON() {
             fillColor: 'yellow',
             strokeColor: 'black',
             strokeWeight: 1
-        });Z
+        });
         console.log("GeoJSON data styled successfully.");
 
         // Add click listener for each feature (polygon) in the GeoJSON data
         map.innerMap.data.addListener('click', function(event) {
-            // Log the entire feature object for inspection
-            console.log("Clicked Feature:", event.feature);
-           
             // Access properties directly from the feature
             const parcelNo = event.feature.getProperty('PARCEL_NO');
             const blockNo = event.feature.getProperty('BLOCK_NO');
 
-            // Check if properties exist to avoid errors
+            // Combine Parcel Number and Block Number in a single console log
             if (parcelNo || blockNo) {
-                // Log the specified details of the clicked feature (estate) to the console
-                console.log("Real Estate Details:");
-                console.log("Parcel Number:", parcelNo || "Unknown");
-                console.log("Block Number:", blockNo || "Unknown");
+                console.log(`Real Estate Details: Parcel Number: ${parcelNo || "Not available"}, Block Number: ${blockNo || "Not available"}`);
             } else {
-                // Handle case where properties are missing
                 console.warn("No properties found for this feature.");
             }
         });
