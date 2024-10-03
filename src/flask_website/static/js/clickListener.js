@@ -42,7 +42,7 @@ function addClickListener(map) {
                             <p><strong>Block No (API Processed):</strong> ${apiData.block_no || "Not available"}</p>
 
                             <!-- More details button -->
-                            <button id="more-details-btn" onclick="showMoreDetails()">More Details</button>
+                            <button id="more-details-btn" onclick="viewMoreDetails('${parcelNo}', '${blockNo}', '${apiData.parcel_no}', '${apiData.block_no}')">More Details</button>
                         </div>
                     `;
 
@@ -64,7 +64,14 @@ function addClickListener(map) {
     });
 }
 
-// Function to handle 'More Details' button click
-function showMoreDetails() {
-    alert("More details functionality can be implemented here.");
+// Function to handle 'More Details' button click and redirect to a new page
+function viewMoreDetails(parcelNo, blockNo, apiParcelNo, apiBlockNo) {
+    // Store property details in localStorage to display on the new page
+    localStorage.setItem("parcel_no", parcelNo);
+    localStorage.setItem("block_no", blockNo);
+    localStorage.setItem("api_parcel_no", apiParcelNo);
+    localStorage.setItem("api_block_no", apiBlockNo);
+
+    // Redirect to the property details page
+    window.location.href = "/property-details";
 }
