@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request, jsonify
+from api import api_blueprint  # Import the API blueprint
 
 app = Flask(__name__, static_url_path='/static')
+
+# Register the API blueprint
+app.register_blueprint(api_blueprint, url_prefix='/api')
+
 
 # Home route
 @app.route('/')

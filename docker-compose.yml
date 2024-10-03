@@ -6,3 +6,14 @@ services:
       - "5000:5000"
     volumes:
       - ./src:/root/src/
+    depends_on:
+      - api  # Ensure that the web service waits for the API to start
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"  
+    volumes:
+      - ./src:/root/src/  # Mount source code to container
+    environment:
+      - FLASK_APP=flask_website/app.py
