@@ -1,7 +1,7 @@
-let infoWindow;  // Declare the infoWindow variable globally to clickListener.js
+let infoWindow;  // Declare the infoWindow variable globally
 
 // Function to load and style the GeoJSON data
-async function loadGeoJSON() {
+async function loadGeoJSON(map) {
     const loadingIndicator = document.getElementById('loading-indicator');
 
     try {
@@ -19,15 +19,6 @@ async function loadGeoJSON() {
 
         const geojsonData = await response.json();
 
-        // Get the map element
-        const map = document.querySelector('gmp-map');
-
-        // Check if the map is loaded
-        if (!map || !map.innerMap) {
-            console.error("Map is not loaded.");
-            return;
-        }
-
         // Add GeoJSON data to the map
         map.innerMap.data.addGeoJson(geojsonData);
 
@@ -44,7 +35,7 @@ async function loadGeoJSON() {
         infoWindow = new google.maps.InfoWindow();
 
         // Call the function to add the click listener after GeoJSON data is loaded
-        addClickListener(map);
+        addClickListener(map);  // Call the click listener with the map reference
 
     } catch (error) {
         console.error("Error loading GeoJSON data:", error);
@@ -53,6 +44,3 @@ async function loadGeoJSON() {
         loadingIndicator.style.display = 'none';
     }
 }
-
-// Initialize the map when the DOM content is loaded
-document.addEventListener('DOMContentLoaded', loadGeoJSON);

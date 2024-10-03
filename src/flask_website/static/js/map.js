@@ -1,10 +1,10 @@
 // Function to initialize the Google Maps components
-async function init() {
+async function initMap() {
   try {
       // Wait for the custom elements to be defined
       await customElements.whenDefined('gmp-map');
   
-      // Select the map element only (removed the place picker element)
+      // Select the map element
       const map = document.querySelector('gmp-map');
   
       // Check if the map element is found
@@ -23,6 +23,9 @@ async function init() {
       const defaultLocation = { lat: 26.3267, lng: 43.9734 }; // Buraydah, Qassim coordinates
       map.center = defaultLocation;
       map.zoom = 13;
+
+      // Once the map is initialized, load GeoJSON data
+      loadGeoJSON(map);  // Call GeoJSON loading function with the map reference
   
   } catch (error) {
       console.error("Error initializing map:", error);
@@ -30,4 +33,4 @@ async function init() {
 }
 
 // Initialize the map when the DOM content is loaded
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', initMap);
