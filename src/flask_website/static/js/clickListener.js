@@ -75,3 +75,12 @@ function viewMoreDetails(parcelNo, blockNo, apiParcelNo, apiBlockNo) {
     // Redirect to the property details page
     window.location.href = "/property-details";
 }
+
+// Clear IndexedDB and LocalStorage on browser close
+window.onbeforeunload = () => {
+    // Clear IndexedDB
+    indexedDB.deleteDatabase("GeoJSONData");
+
+    // Clear LocalStorage
+    localStorage.clear();
+};
