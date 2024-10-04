@@ -2,6 +2,7 @@
 body {
     min-height: 100vh;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
     margin: 0; /* Remove default margin to ensure full height */
     font-family: Arial, sans-serif; /* Set a default font for consistency */
@@ -9,15 +10,15 @@ body {
 
 /* Style the navigation bar */
 .navbar {
-    margin-bottom: 20px; /* Add space below the navbar */
+    margin-bottom: 5px; /* Add space below the navbar */
 }
 
 /* Style the main content container */
 .container {
     flex: 1; /* Allow container to grow and fill available space */
-    display: flex;
+    display: block;
     flex-direction: column;
     justify-content: center; /* Center content vertically */
-    padding: 20px; /* Add padding inside the container */
+    padding: 0px; /* Add padding inside the container */
 }
 

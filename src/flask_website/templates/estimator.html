@@ -6,43 +6,86 @@
 {% endblock %}
 
 {% block body %}
-  <div class="estimator-container">
-    <!-- Title of the estimator tool -->
-    <h1 class="estimator-title">Real Estate Estimator Tool</h1>
+  <div class="estimator-wrapper">
+    <div class="estimator-container">
+      <!-- Title of the estimator tool -->
+      <h1 class="estimator-title">Real Estate Estimator Tool</h1>
 
-    <!-- Form for inputting real estate details -->
-    <form action="/estimate" method="POST" class="estimator-form">
-      <!-- Container for two columns of form inputs -->
-      <div class="form-row">
-        <!-- Left column with two input fields -->
-        <div class="form-column">
-          <div class="form-group">
-            <label for="total_area">Total Area (sq ft):</label>
-            <input type="number" name="total_area" id="total_area" placeholder="Enter total area" class="form-control" required>
+      <!-- Form for inputting property details -->
+      <form action="/estimate" method="POST" class="estimator-form">
+        <!-- Container for two columns of form inputs -->
+        <div class="form-row">
+          <!-- Left column with two input fields -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="total_area">Area (m²):</label>
+              <input type="number" name="total_area" id="total_area" placeholder="Enter area" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="district">District:</label>
+              <input type="text" name="district" id="district" placeholder="Enter district" class="form-control" required>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="neighborhood">Neighborhood:</label>
-            <input type="text" name="neighborhood" id="neighborhood" placeholder="Enter neighborhood" class="form-control" required>
+          <!-- Right column with two input fields -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="city">City:</label>
+              <select name="city" id="city" class="form-control" required>
+                <option value="">Select a city</option>
+                <option value="Al-Rass">Al-Rass</option>
+                <option value="Unaizah">Unaizah</option>
+                <option value="Buraidah">Buraidah</option>
+                <!-- Add all other Saudi cities here -->
+                <option value="Riyadh">Riyadh</option>
+                <option value="Jeddah">Jeddah</option>
+                <option value="Dammam">Dammam</option>
+                <option value="Mecca">Mecca</option>
+                <option value="Medina">Medina</option>
+                <option value="Khobar">Khobar</option>
+                <option value="Taif">Taif</option>
+                <option value="Abha">Abha</option>
+                <option value="Tabuk">Tabuk</option>
+                <!-- Add as many cities as necessary -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="unit_number">Unit Number:</label>
+              <input type="text" name="unit_number" id="unit_number" placeholder="Enter unit number" class="form-control">
+            </div>
           </div>
         </div>
 
-        <!-- Right column with two input fields -->
-        <div class="form-column">
-          <div class="form-group">
-            <label for="city">City:</label>
-            <input type="text" name="city" id="city" placeholder="Enter city" class="form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="street">Street:</label>
-            <input type="text" name="street" id="street" placeholder="Enter street" class="form-control" required>
-          </div>
+        <!-- Scheme and Calculate button -->
+        <div class="form-group">
+          <label for="scheme">Scheme:</label>
+          <select name="scheme" id="scheme" class="form-control" required>
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+          </select>
         </div>
-      </div>
 
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-primary">Estimate Price</button>
-    </form>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Calculate Estimated Value</button>
+      </form>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">This estimate is only a prediction and should not be considered the final price. Please consult with a professional for an accurate property valuation.</p>
+
+      <!-- Placeholder for the result -->
+      <div id="result" class="result-box"></div>
+    </div>
   </div>
+
+  <!-- Script to handle the result -->
+  <script>
+    document.querySelector('.estimator-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Simulating result for now
+      const resultBox = document.getElementById('result');
+      resultBox.innerHTML = '<h2>Estimated Property Value: 130,680 SAR</h2>';
+    });
+  </script>
 {% endblock %}

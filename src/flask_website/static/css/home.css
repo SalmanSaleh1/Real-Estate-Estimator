@@ -1,7 +1,7 @@
 /* Styles for the container */
 .container {
   background-color: #d3d3d3; /* Light silver background for the remaining page */
-  padding: 20px;
+  padding: 0px;
   min-height: calc(100vh - 60px); /* Adjust according to navbar height */
 }
 
@@ -155,8 +155,8 @@ margin-top: 3px;
 /* Filter button at the bottom right */
 .filter-btn {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 140px;
+  right: 10px;
   z-index: 100;
   background-color: #fffffffa; /* Button color */
   color: white;
@@ -176,8 +176,8 @@ margin-top: 3px;
 /* Pop-up window for filter options */
 .filter-form-container {
   position: absolute;
-  bottom: 90px; /* Position it just above the button */
-  right: 20px;
+  bottom: 190px; /* Position it just above the button */
+  right: 30px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;

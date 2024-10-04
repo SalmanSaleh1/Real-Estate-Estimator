@@ -1,67 +1,97 @@
+/* Estimator page wrapper styling with white background */
+.estimator-wrapper {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for elevation */
+  max-width: 800px; /* Restrict width */
+  margin: auto;
+  margin-top: 50px; /* Add space at the top */
+}
+
 /* Estimator page container styling */
 .estimator-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  
-  /* Title styling */
-  .estimator-title {
-    font-size: 36px; /* Big font size for the title */
-    font-weight: bold; /* Bold text for emphasis */
-    text-align: center; /* Center the title */
-    margin-bottom: 30px; /* Space below the title */
-  }
-  
-  /* Form container styling */
-  .estimator-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Space between form elements */
-    width: 600px; /* Set a fixed width for the form */
-  }
-  
-  /* Container for two columns of form inputs */
-  .form-row {
-    display: flex;
-    justify-content: space-between; /* Distribute space between columns */
-  }
-  
-  /* Styling for each column */
-  .form-column {
-    width: 48%; /* Slightly less than half of the row width */
-  }
-  
-  /* Form group styling */
-  .form-group {
-    display: flex;
-    flex-direction: column; /* Stack label and input vertically */
-    margin-bottom: 15px; /* Space between form groups */
-  }
-  
-  /* Input field styling */
-  .form-control {
-    padding: 10px; /* Padding inside the input fields */
-    border-radius: 5px; /* Rounded corners for inputs */
-    border: 1px solid #ccc; /* Light grey border */
-    font-size: 16px; /* Font size for input text */
-  }
-  
-  /* Button styling */
-  .btn-primary {
-    background-color: #007bff; /* Blue background */
-    color: white; /* White text color */
-    padding: 10px; /* Padding inside the button */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners for the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Font size for button text */
-  }
-  
-  /* Button hover effect */
-  .btn-primary:hover {
-    background-color: #0056b3; /* Darker blue background on hover */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Title styling */
+.estimator-title {
+  font-size: 36px; /* Big font size for the title */
+  font-weight: bold; /* Bold text for emphasis */
+  text-align: center; /* Center the title */
+  margin-bottom: 30px; /* Space below the title */
+}
+
+/* Form container styling */
+.estimator-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between form elements */
+  width: 100%;
+}
+
+/* Container for two columns of form inputs */
+.form-row {
+  display: flex;
+  justify-content: space-between; /* Distribute space between columns */
+}
+
+/* Styling for each column */
+.form-column {
+  width: 48%; /* Slightly less than half of the row width */
+}
+
+/* Form group styling */
+.form-group {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+/* Input field styling */
+.form-control {
+  padding: 10px; /* Padding inside the input fields */
+  border-radius: 5px; /* Rounded corners for inputs */
+  border: 1px solid #ccc; /* Light grey border */
+  font-size: 16px; /* Font size for input text */
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text color */
+  padding: 10px; /* Padding inside the button */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size for button text */
+}
+
+/* Button hover effect */
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue background on hover */
+}
+
+/* Disclaimer styling */
+.disclaimer {
+  font-size: 14px;
+  color: #555;
+  margin-top: 20px;
+  text-align: center;
+  max-width: 600px;
+}
+
+/* Result box styling */
+.result-box {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
