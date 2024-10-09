@@ -1,9 +1,14 @@
 from dotenv import load_dotenv
 import db_connection
+from db_classes import Property
 
-
+import unittest
+import os
+import subprocess
 from flask import Flask, render_template, request, jsonify
 from api import api_blueprint  # Import the API blueprint
+from test_insertion import TestInsertion
+
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -45,6 +50,24 @@ def property_details():
     }
 
     return render_template('property_details.html', **api_data)
+
+@app.route('/run_tests', methods=['GET'])
+def run_tests():
+    try:
+        # Create a test suite
+        suite = unittest.TestLoader().loadTestsFromTestCase(TestInsertion)
+
+        # Create a test runner and capture the results
+        result = unittest.TextTestRunner(verbosity=2).run(suite)
+
+        # Check if tests passed or failed
+        if result.wasSuccessful():
+            return jsonify({"message": "Tests ran successfully", "result": result}), 200
+        else:
+            return jsonify({"error": "Test execution failed", "result": result}), 500
+
+    except Exception as e:
+        return jsonify({"error": f"Test execution failed: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

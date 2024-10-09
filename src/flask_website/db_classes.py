@@ -5,7 +5,8 @@ class Property(db.Model):
     __tablename__ = 'properties'
 
     # Fields matching the GeoJSON data structure
-    id = db.Column(db.Integer, primary_key=True, nullable=False)  # Primary key (cannot be null)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_object = db.Column(db.Integer, unique=True, nullable=True)  # Add the new column
     coordinates = db.Column(db.JSON, nullable=True)  # Coordinates (nullable)
     shape_area = db.Column(db.Numeric(10, 3), nullable=True)  # Shape area (nullable)
     owner_name = db.Column(db.String(255), nullable=True)  # Owner's name (nullable)

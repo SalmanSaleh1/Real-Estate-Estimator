@@ -2,7 +2,8 @@ CREATE DATABASE IF NOT EXISTS ree;
 USE ree;
 
 CREATE TABLE IF NOT EXISTS properties (
-    id INT PRIMARY KEY NOT NULL,  -- Primary key cannot be null
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,  -- Primary key with auto-increment
+    id_object INT UNIQUE,  -- New column: id_object (unique and nullable)
     coordinates JSON,  -- Coordinates field (nullable)
     shape_area DOUBLE,  -- Shape area (nullable)
     owner_name VARCHAR(255),  -- Owner's name (nullable)

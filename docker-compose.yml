@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   web:
     build: .
@@ -8,25 +10,24 @@ services:
     env_file:
       - .env  # Reference to your .env file
     depends_on:
-      - db  # web depends on db, not api
+      - db  # web service depends on db service
     links:
-      - db  
-
+      - db
 
   api:
     build: .
     ports:
-      - "8000:8000"  
+      - "8000:8000"
     volumes:
-      - ./src:/root/src/  # Mount source code to container
+      - ./src:/root/src/
     environment:
       - FLASK_APP=flask_website/app.py
     env_file:
       - .env  # Reference to your .env file
     depends_on:
-      - db  # api depends on db only
+      - db  # api service depends on db service
     links:
-      - db  
+      - db
 
   db:
     image: mysql:8.2
@@ -40,3 +41,5 @@ services:
     ports:
       - "${DB_PORT}:3306"
     hostname: "${HOSTNAME}"
+    env_file:
+      - .env
