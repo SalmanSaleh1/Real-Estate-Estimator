@@ -25,10 +25,10 @@ WEB_PORT=5000
 DB_PORT=3306
 INIT_FILE=./resources
 HOSTNAME=test1
-MYSQL_DATABASE=order_tracking
+MYSQL_DATABASE=ree
 MYSQL_ROOT_PASSWORD=changeme
 MYSQL_USER=dbuser1
 MYSQL_PASSWORD=changeme
-SCHEMA=order_tracking
+SCHEMA=ree
 SECRET_KEY=my_secret_key_here
 ```
