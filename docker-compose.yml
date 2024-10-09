@@ -1,13 +1,17 @@
-version: "3"
 services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - "${WEB_PORT}:5000"
     volumes:
       - ./src:/root/src/
+    env_file:
+      - .env  # Reference to your .env file
     depends_on:
-      - api  # Ensure that the web service waits for the API to start
+      - db  # web depends on db, not api
+    links:
+      - db  
+
 
   api:
     build: .
@@ -17,3 +21,22 @@ services:
       - ./src:/root/src/  # Mount source code to container
     environment:
       - FLASK_APP=flask_website/app.py
+    env_file:
+      - .env  # Reference to your .env file
+    depends_on:
+      - db  # api depends on db only
+    links:
+      - db  
+
+  db:
+    image: mysql:8.2
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ${INIT_FILE}:/docker-entrypoint-initdb.d
+    ports:
+      - "${DB_PORT}:3306"
+    hostname: "${HOSTNAME}"
