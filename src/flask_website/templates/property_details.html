@@ -1,37 +1,42 @@
 {% extends "base.html" %}
 
-{% block title %}Property details{% endblock %}
+{% block title %}Property Details{% endblock %}
 
 {% block head %}
-
- <!-- Css script or calls-->
-
+    <!-- Css script or calls -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/property-details.css') }}">
 {% endblock %}
 
 {% block body %}
     <h1>Property Details</h1>
     <div id="property-details-container">
-        <p><strong>Parcel No:</strong> <span id="parcel-no"></span></p>
-        <p><strong>Block No:</strong> <span id="block-no"></span></p>
-        <p><strong>Parcel No (API Processed):</strong> <span id="api-parcel-no"></span></p>
-        <p><strong>Block No (API Processed):</strong> <span id="api-block-no"></span></p>
-        <!-- Add more details as needed -->
+        <h2>General Information</h2>
+        <ul>
+            <li><strong>Owner Name:</strong> {{ property.owner_name or "Not available" }}</li>
+            <li><strong>Parcel No:</strong> {{ property.parcel_no or "Not available" }}</li>
+            <li><strong>Block No:</strong> {{ property.block_no or "Not available" }}</li>
+            <li><strong>Shape Area:</strong> {{ property.shape_area or "Not available" }} m²</li>
+            <li><strong>Land Use Type:</strong> {{ property.parcel_land_use or "Not available" }}</li>
+            <li><strong>Coordinates:</strong> {{ property.coordinates or "Not available" }}</li>
+            <li><strong>District Name:</strong> {{ property.district_name or "Not available" }}</li>
+            <li><strong>Subdivision Name:</strong> {{ property.subdiv_name or "Not available" }}</li>
+            <li><strong>City Name:</strong> {{ property.city_name or "Not available" }}</li>
+            <li><strong>Municipality Name:</strong> {{ property.muncp_name or "Not available" }}</li>
+            <li><strong>Parcel Status:</strong> {{ property.parcel_status or "Not available" }}</li>
+            <li><strong>Municipality ID:</strong> {{ property.muncp_id or "Not available" }}</li>
+            <li><strong>Subdivision No:</strong> {{ property.subdiv_no or "Not available" }}</li>
+            <li><strong>Notes:</strong> {{ property.notes or "Not available" }}</li>
+            <li><strong>Construction Type:</strong> {{ property.construction_type or "Not available" }}</li>
+            <li><strong>Split Type:</strong> {{ property.split_type or "Not available" }}</li>
+            <li><strong>Subdivision Type:</strong> {{ property.subdiv_type or "Not available" }}</li>
+            <li><strong>Municipality Description:</strong> {{ property.muncp_desc or "Not available" }}</li>
+        </ul>
     </div>
     <a href="/" id="back-to-map">Back to Map</a>
 {% endblock %}
 
 {% block scripts %}
     <script>
-        // Get the property details from localStorage
-        const parcelNo = localStorage.getItem("parcel_no");
-        const blockNo = localStorage.getItem("block_no");
-        const apiParcelNo = localStorage.getItem("api_parcel_no");
-        const apiBlockNo = localStorage.getItem("api_block_no");
-
-        // Set the details on the page
-        document.getElementById("parcel-no").innerText = parcelNo || "Not available";
-        document.getElementById("block-no").innerText = blockNo || "Not available";
-        document.getElementById("api-parcel-no").innerText = apiParcelNo || "Not available";
-        document.getElementById("api-block-no").innerText = apiBlockNo || "Not available";
+        // You can add any specific scripts for this page here if necessary
     </script>
 {% endblock %}

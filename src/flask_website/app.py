@@ -34,22 +34,17 @@ def about():
 def estimator():
     return render_template('estimator.html')
     
-# Route for serving the property details page with API data
-@app.route('/property-details')
-def property_details():
-    parcel_no = request.args.get('parcel_no')
-    block_no = request.args.get('block_no')
+# Route for fetching property details using id_object
+@app.route('/property-details/<int:id_object>', methods=['GET'])
+def get_property_details(id_object):
+    property_details = Property.query.filter_by(id_object=id_object).first()
 
-    # Fetch details from an API or database based on parcel_no and block_no
-    # For demonstration, using mock data
-    api_data = {
-        'parcel_no': parcel_no,
-        'block_no': block_no,
-        'api_parcel_no': 'API Parcel 12345',
-        'api_block_no': 'API Block 67890'
-    }
+    if property_details:
+        # Return property details in the rendered template
+        return render_template('property_details.html', property=property_details)
+    else:
+        return jsonify({'error': 'Property not found'}), 404
 
-    return render_template('property_details.html', **api_data)
 
 @app.route('/run_tests', methods=['GET'])
 def run_tests():
