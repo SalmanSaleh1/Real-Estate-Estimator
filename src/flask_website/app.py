@@ -33,15 +33,28 @@ def about():
 @app.route('/estimator', methods=['GET'])
 def estimator():
     return render_template('estimator.html')
-    
+
 # Route for fetching property details using id_object
-@app.route('/property-details/<int:id_object>', methods=['GET'])
 def get_property_details(id_object):
     property_details = Property.query.filter_by(id_object=id_object).first()
 
     if property_details:
-        # Return property details in the rendered template
-        return render_template('property_details.html', property=property_details)
+        # Call the ML API to get the predicted price
+        try:
+            # Assuming your ML API is at '/api/test/<int:id_object>'
+            api_url = f'http://127.0.0.1:5000/api/test/{id_object}'
+            response = requests.get(api_url)
+            
+            if response.status_code == 200:
+                predicted_price = response.json().get('predicted_price', 'N/A')
+            else:
+                predicted_price = 'N/A'
+        except Exception as e:
+            print(f"Error calling ML API: {e}")
+            predicted_price = 'N/A'
+
+        # Return property details along with predicted price
+        return render_template('property_details.html', property=property_details, predicted_price=predicted_price)
     else:
         return jsonify({'error': 'Property not found'}), 404
 
