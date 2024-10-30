@@ -42,5 +42,5 @@ function formatNumber(num, decimals = 2) {
 // Function to handle 'More Details' button click and redirect to the property details page
 function viewMoreDetails(idObject) {
     // Redirect to the property details page using the id_object
-    window.location.href = `/property-details/${idObject}`;
+    window.location.href = `/property/${idObject}`;
 }

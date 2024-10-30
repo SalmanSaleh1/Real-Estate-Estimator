@@ -8,9 +8,9 @@ services:
     volumes:
       - ./src:/root/src/
     env_file:
-      - .env  # Reference to your .env file
+      - .env
     depends_on:
-      - db  # web service depends on db service
+      - db
     links:
       - db
 
@@ -23,23 +23,22 @@ services:
     environment:
       - FLASK_APP=flask_website/app.py
     env_file:
-      - .env  # Reference to your .env file
+      - .env
     depends_on:
-      - db  # api service depends on db service
+      - db
     links:
       - db
 
   db:
-    image: mysql:8.2
+    image: mysql:8.0
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     volumes:
       - ${INIT_FILE}:/docker-entrypoint-initdb.d
     ports:
       - "${DB_PORT}:3306"
-    hostname: "${HOSTNAME}"
     env_file:
       - .env
