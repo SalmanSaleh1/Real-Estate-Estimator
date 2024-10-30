@@ -1,11 +1,11 @@
-import pickle
+from catboost import CatBoostRegressor
 from pathlib import Path
 
-# Correct the variable to use __file__ with double underscores
-model_path = Path(__file__).resolve().parent / 'final_xgb_model.pkl'
+# Define the path to the CatBoost model file
+model_path = Path(__file__).resolve().parent / 'final_catboost_property_model_LATEST01.cbm'
 
-# Load the model and store it in a function
-def load_xgb_model():
-    with open(model_path, 'rb') as f:
-        xgb_model = pickle.load(f)
-    return xgb_model
+# Load the CatBoost model
+def load_catboost_model():
+    model = CatBoostRegressor()
+    model.load_model(str(model_path))
+    return model

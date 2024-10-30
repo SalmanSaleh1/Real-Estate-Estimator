@@ -1,12 +1,10 @@
 from flask import Blueprint, jsonify, request
-from dotenv import load_dotenv
-from flask import Blueprint, jsonify
-import db_connection
+from load_model import load_catboost_model
 import numpy as np
+import pandas as pd
+from catboost import Pool
+import db_connection
 from db_classes import Property
-from load_model import load_xgb_model  # Import the function that loads the model
-
-xgb_model = load_xgb_model()
 
 api_blueprint = Blueprint('api', __name__)
 
@@ -15,59 +13,101 @@ app = db_connection.app
 db = db_connection.db
 bcrypt = db_connection.bcrypt
 
-# Define an API route that accepts object_id as a parameter in the function signature
-@api_blueprint.route('/test/<int:object_id>', methods=['GET'])  # Or POST depending on your use case
-def ml_api(object_id):
-    """
-    This API endpoint takes object_id as a path parameter and uses it to retrieve
-    the necessary data for the machine learning model. It only returns the predicted price.
-    """
+# Load the CatBoost model
+catboost_model = load_catboost_model()
 
-    # Use object_id to retrieve relevant property information from the database
+def predict_property_value(area, city, district, Mukatat, space, property_classification, property_type, Price_per_square_meter=None):
+    # Model's expected feature names
+    model_features = catboost_model.feature_names_
+    print("Model's expected feature order:", model_features)
+    
+    # Handle missing `Price_per_square_meter`
+    if Price_per_square_meter is None:
+        Price_per_square_meter = "unknown"
+    
+    # Prepare data in the correct order
+    new_data = pd.DataFrame({
+        'area': [area],
+        'city': [city],
+        'district': [district],
+        'Mukatat': [Mukatat],
+        'property_classification': [property_classification],
+        'property_type': [property_type],
+        'space': [space],
+        'Price_per_square_meter': [Price_per_square_meter],
+        'log_space': [np.log1p(space)]
+    })
+    
+    # Ensure columns are in the model's expected order
+    new_data = new_data[model_features]
+    
+    # Convert all categorical columns to strings
+    categorical_features = ['area', 'city', 'district', 'Mukatat', 'property_classification', 'property_type', 'Price_per_square_meter']
+    for col in categorical_features:
+        new_data[col] = new_data[col].astype(str)
+    
+    # Create a Pool with categorical features
+    input_pool = Pool(new_data, cat_features=categorical_features)
+    
+    # Predict log price and convert back to original scale
+    log_price_pred = catboost_model.predict(input_pool)
+    predicted_price = np.expm1(log_price_pred)
+    
+    return predicted_price[0]
+
+@api_blueprint.route('/predict/<int:object_id>', methods=['GET'])
+def ml_api(object_id):
+    # Retrieve property information from the database using object_id
     property_info = get_info(object_id)
 
-    # Check if the property was found
     if 'error' in property_info:
         return jsonify({"error": property_info['error']}), 404
 
-    # Extract the required fields for the ML model from property_info
-    city = property_info['city']
-    district = property_info['district']
-    Mukatat = property_info['Mukatat']
-    Piece_num = property_info['Piece_num']
-    space = property_info['space']
-
-    # Convert the input features into the format required by the model
-    # Preprocess features as needed (e.g., encoding, scaling)
-    features = np.array([[city, district, Mukatat, Piece_num, float(space)]])
-
-    # Predict using the loaded model
+    # Extract features for the ML model
     try:
-        prediction = xgb_model.predict(features)
-        return jsonify({"predicted_price": float(prediction[0])})
+        city = property_info['city']
+        district = property_info['district']
+        Mukatat = property_info['Mukatat']
+        space = float(property_info['space'])
+        property_classification = property_info.get('property_classification', 'unknown')
+        property_type = property_info.get('property_type', 'unknown')
+        Price_per_square_meter = property_info.get('Price_per_square_meter', None)
+
+        # Predict price using the CatBoost model
+        prediction = predict_property_value(
+            area=property_info['area'],
+            city=city,
+            district=district,
+            Mukatat=Mukatat,
+            space=space,
+            property_classification=property_classification,
+            property_type=property_type,
+            Price_per_square_meter=Price_per_square_meter
+        )
+
+        return jsonify({"predicted_price": prediction})
+
     except Exception as e:
         return jsonify({"error": f"Model prediction failed: {e}"}), 500
 
 def get_info(object_id):
-    """
-    Retrieves property details from the database using the provided object_id.
-    """
+    # Retrieves property details from the database using object_id
     try:
-        # Fetch the property from the database using object id
         property_details = Property.query.filter_by(id_object=object_id).first()
 
         if property_details:
-            # Return the details, renamed to match ML object names
             return {
-                "city": property_details.city_name,              # city_name -> city
-                "district": property_details.district_name,      # district_name -> district
-                "Mukatat": property_details.subdiv_no,           # subdiv_no -> Mukatat
-                "Piece_num": property_details.parcel_no,         # parcel_no -> Piece_num
-                "space": str(property_details.shape_area)        # shape_area -> space
+                "area": property_details.area_name,
+                "city": property_details.city_name,
+                "district": property_details.district_name,
+                "Mukatat": property_details.subdiv_no,
+                "space": property_details.shape_area,
+                "property_classification": property_details.classification,
+                "property_type": property_details.property_type,
+                "Price_per_square_meter": property_details.price_per_meter
             }
         else:
             return {"error": "Property not found"}
 
     except Exception as e:
-        # Catch any unexpected errors
         return {"error": f"Error processing input: {e}"}

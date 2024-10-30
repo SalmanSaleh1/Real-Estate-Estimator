@@ -70,7 +70,7 @@ async function loadGeoJSON(map) {
         let geojsonData = await getGeoJSONFromDB();
         if (!geojsonData) {
             // If not cached, fetch the GeoJSON file
-            const response = await fetch('/static/geojson/TestPrint.json');
+            const response = await fetch('/static/geojson/TestPrint1.json');
 
             // Check if the response is OK
             if (!response.ok) {
