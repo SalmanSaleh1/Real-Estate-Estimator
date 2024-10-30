@@ -21,11 +21,6 @@
               <label for="total_area">Area (m²):</label>
               <input type="number" name="total_area" id="total_area" placeholder="Enter area" class="form-control" required>
             </div>
-
-            <div class="form-group">
-              <label for="district">District:</label>
-              <input type="text" name="district" id="district" placeholder="Enter district" class="form-control" required>
-            </div>
           </div>
 
           <!-- Right column with two input fields -->
@@ -37,7 +32,7 @@
                 <option value="Al-Rass">Al-Rass</option>
                 <option value="Unaizah">Unaizah</option>
                 <option value="Buraidah">Buraidah</option>
-                <!-- Add all other Saudi cities here -->
+                <!-- Add other Saudi cities here -->
                 <option value="Riyadh">Riyadh</option>
                 <option value="Jeddah">Jeddah</option>
                 <option value="Dammam">Dammam</option>
@@ -47,24 +42,37 @@
                 <option value="Taif">Taif</option>
                 <option value="Abha">Abha</option>
                 <option value="Tabuk">Tabuk</option>
-                <!-- Add as many cities as necessary -->
               </select>
-            </div>
-
-            <div class="form-group">
-              <label for="unit_number">Unit Number:</label>
-              <input type="text" name="unit_number" id="unit_number" placeholder="Enter unit number" class="form-control">
             </div>
           </div>
         </div>
 
-        <!-- Scheme and Calculate button -->
-        <div class="form-group">
-          <label for="scheme">Scheme:</label>
-          <select name="scheme" id="scheme" class="form-control" required>
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-          </select>
+        <!-- Second row for District and Scheme fields -->
+        <div class="form-row">
+          <!-- Left column: District -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="district">District:</label>
+              <select name="district" id="district" class="form-control" required>
+                <option value="">Select a district</option>
+                <!-- Districts will be dynamically populated here -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Right column: Scheme -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="scheme">Scheme:</label>
+              <select name="scheme" id="scheme" class="form-control" required>
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+                <option value="industrial">Industrial</option>
+                <option value="agricultural">Agricultural</option>
+                <option value="mixed-use">Mixed-Use</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <!-- Submit button -->
@@ -79,13 +87,46 @@
     </div>
   </div>
 
-  <!-- Script to handle the result -->
+  <!-- Script to handle the district options and form submission -->
   <script>
-    document.querySelector('.estimator-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      // Simulating result for now
-      const resultBox = document.getElementById('result');
-      resultBox.innerHTML = '<h2>Estimated Property Value: 130,680 SAR</h2>';
+    document.addEventListener('DOMContentLoaded', function () {
+      const citySelect = document.getElementById('city');
+      const districtSelect = document.getElementById('district');
+
+      const districts = {
+        'Al-Rass': ['Al-Qadsia', 'Al-Shuhada', 'Al-Rawda', 'Al-Houta'],
+        'Unaizah': ['Al-Rawabi', 'Al-Safa', 'Al-Rayyan', 'Al-Rawda'],
+        'Buraidah': ['Al-Nakheel', 'Al-Qadsia', 'Al-Nahda', 'Al-Rayan'],
+        'Riyadh': ['Olaya', 'Al-Malaz', 'Al-Naseem', 'Al-Rawda'],
+        'Jeddah': ['Al-Hamra', 'Al-Safa', 'Al-Rehab', 'Al-Baghdadiyah'],
+        'Dammam': ['Al-Faisaliyah', 'Al-Mazrouiah', 'Al-Jubail', 'Al-Rakah'],
+        'Mecca': ['Al-Aziziyah', 'Al-Hijra', 'Al-Zaher', 'Al-Maabdah'],
+        'Medina': ['Al-Manakhah', 'Al-Hijaziyah', 'Al-Awali', 'Al-Safiyah'],
+        'Khobar': ['Al-Aqrabiyah', 'Al-Rakah', 'Al-Thuqbah', 'Al-Rakah'],
+        'Taif': ['Al-Hawiya', 'Al-Shifa', 'Al-Qaim', 'Al-Sail'],
+        'Abha': ['Al-Masarah', 'Al-Nuzhah', 'Al-Faisaliyah', 'Al-Rawabi'],
+        'Tabuk': ['Al-Amir Fahd', 'Al-Morooj', 'Al-Rawdha', 'Al-Abrar']
+      };
+
+      citySelect.addEventListener('change', function () {
+        const selectedCity = citySelect.value;
+        districtSelect.innerHTML = '<option value="">Select a district</option>'; // Reset the district options
+
+        if (districts[selectedCity]) {
+          districts[selectedCity].forEach(function (district) {
+            const option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+          });
+        }
+      });
+
+      document.querySelector('.estimator-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const resultBox = document.getElementById('result');
+        resultBox.innerHTML = '<h2>Estimated Property Value: 130,680 SAR</h2>';
+      });
     });
   </script>
 {% endblock %}
