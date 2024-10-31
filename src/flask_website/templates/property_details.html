@@ -3,41 +3,49 @@
 {% block title %}Property Details{% endblock %}
 
 {% block head %}
-    <!-- Css script or calls -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/property-details.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Property Details</h1>
+    <div class="header-container">
+        <a href="/" id="back-to-map">Back to Map</a>
+        <header>
+            <h1>Property Details</h1>
+        </header>
+    </div>
+
     <div id="property-details-container">
         <h2>General Information</h2>
-        <ul>
-            <li><strong>Owner Name:</strong> {{ property.owner_name or "Not available" }}</li>
-            <li><strong>Parcel No:</strong> {{ property.parcel_no or "Not available" }}</li>
-            <li><strong>Block No:</strong> {{ property.block_no or "Not available" }}</li>
-            <li><strong>Shape Area:</strong> {{ property.shape_area or "Not available" }} m²</li>
-            <li><strong>Land Use Type:</strong> {{ property.parcel_land_use or "Not available" }}</li>
-            <li><strong>Coordinates:</strong> {{ property.coordinates or "Not available" }}</li>
-            <li><strong>District Name:</strong> {{ property.district_name or "Not available" }}</li>
-            <li><strong>Subdivision Name:</strong> {{ property.subdiv_name or "Not available" }}</li>
-            <li><strong>City Name:</strong> {{ property.city_name or "Not available" }}</li>
-            <li><strong>Municipality Name:</strong> {{ property.muncp_name or "Not available" }}</li>
-            <li><strong>Parcel Status:</strong> {{ property.parcel_status or "Not available" }}</li>
-            <li><strong>Municipality ID:</strong> {{ property.muncp_id or "Not available" }}</li>
-            <li><strong>Subdivision No:</strong> {{ property.subdiv_no or "Not available" }}</li>
-            <li><strong>Notes:</strong> {{ property.notes or "Not available" }}</li>
-            <li><strong>Construction Type:</strong> {{ property.construction_type or "Not available" }}</li>
-            <li><strong>Split Type:</strong> {{ property.split_type or "Not available" }}</li>
-            <li><strong>Subdivision Type:</strong> {{ property.subdiv_type or "Not available" }}</li>
-            <li><strong>Municipality Description:</strong> {{ property.muncp_desc or "Not available" }}</li>
-            <li><strong>Predicted Price:</strong> {{ predicted_price or "Not available" }}</li>
-        </ul>
+        <div class="info-grid">
+            <ul class="info-column">
+                <li><strong>Estimated Price:</strong> {{ predicted_price or "Not available" }}</li>
+                <li><strong>Owner Name:</strong> {{ property.owner_name or "Not available" }}</li>
+                <li><strong>Parcel No:</strong> {{ property.parcel_no or "Not available" }}</li>
+                <li><strong>Block No:</strong> {{ property.block_no or "Not available" }}</li>
+                <li><strong>Shape Area:</strong> {{ property.shape_area or "Not available" }} m²</li>
+                <li><strong>Land Use Type:</strong> {{ property.parcel_land_use or "Not available" }}</li>
+                <li><strong>District Name:</strong> {{ property.district_name or "Not available" }}</li>
+                <li><strong>Subdivision Name:</strong> {{ property.subdiv_name or "Not available" }}</li>
+                <li><strong>City Name:</strong> {{ property.city_name or "Not available" }}</li>
+                <li><strong>Municipality Name:</strong> {{ property.muncp_name or "Not available" }}</li>
+            </ul>
+            <ul class="info-column">
+                <li><strong>Land Status:</strong> {{ property.parcel_status or "Not available" }}</li>
+                <li><strong>Municipality ID:</strong> {{ property.muncp_id or "Not available" }}</li>
+                <li><strong>Subdivision No:</strong> {{ property.subdiv_no or "Not available" }}</li>
+                <li><strong>Construction Type:</strong> {{ property.construction_type or "Not available" }}</li>
+                <li><strong>Split Type:</strong> {{ property.split_type or "Not available" }}</li>
+                <li><strong>Subdivision Type:</strong> {{ property.subdiv_type or "Not available" }}</li>
+                <li><strong>Municipality Description:</strong> {{ property.muncp_desc or "Not available" }}</li>
+                <li><strong>Coordinates:</strong> {{ property.coordinates or "Not available" }}</li>
+                <li><strong>Notes:</strong> {{ property.notes or "Not available" }}</li>
+            </ul>
+        </div>
     </div>
-    <a href="/" id="back-to-map">Back to Map</a>
 {% endblock %}
 
 {% block scripts %}
     <script>
-        // You can add any specific scripts for this page here if necessary
+        // Specific scripts for this page can go here if needed
     </script>
 {% endblock %}

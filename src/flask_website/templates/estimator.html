@@ -3,6 +3,7 @@
 {% block title %}Real Estate Estimator{% endblock %}
 
 {% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estimator.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -15,7 +16,6 @@
       <form action="/estimate" method="POST" class="estimator-form">
         <!-- Container for two columns of form inputs -->
         <div class="form-row">
-          <!-- Left column with two input fields -->
           <div class="form-column">
             <div class="form-group">
               <label for="total_area">Area (m²):</label>
@@ -23,7 +23,6 @@
             </div>
           </div>
 
-          <!-- Right column with two input fields -->
           <div class="form-column">
             <div class="form-group">
               <label for="city">City:</label>
@@ -32,7 +31,6 @@
                 <option value="Al-Rass">Al-Rass</option>
                 <option value="Unaizah">Unaizah</option>
                 <option value="Buraidah">Buraidah</option>
-                <!-- Add other Saudi cities here -->
                 <option value="Riyadh">Riyadh</option>
                 <option value="Jeddah">Jeddah</option>
                 <option value="Dammam">Dammam</option>
@@ -49,18 +47,15 @@
 
         <!-- Second row for District and Scheme fields -->
         <div class="form-row">
-          <!-- Left column: District -->
           <div class="form-column">
             <div class="form-group">
               <label for="district">District:</label>
               <select name="district" id="district" class="form-control" required>
                 <option value="">Select a district</option>
-                <!-- Districts will be dynamically populated here -->
               </select>
             </div>
           </div>
 
-          <!-- Right column: Scheme -->
           <div class="form-column">
             <div class="form-group">
               <label for="scheme">Scheme:</label>
@@ -70,6 +65,19 @@
                 <option value="industrial">Industrial</option>
                 <option value="agricultural">Agricultural</option>
                 <option value="mixed-use">Mixed-Use</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Third row for Land Status field -->
+        <div class="form-row">
+          <div class="form-column">
+            <div class="form-group">
+              <label for="land_status">Land Status:</label>
+              <select name="land_status" id="land_status" class="form-control" required>
+                <option value="empty">Empty</option>
+                <option value="existing_property">Existing Property</option>
               </select>
             </div>
           </div>
@@ -87,7 +95,6 @@
     </div>
   </div>
 
-  <!-- Script to handle the district options and form submission -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const citySelect = document.getElementById('city');
@@ -110,7 +117,7 @@
 
       citySelect.addEventListener('change', function () {
         const selectedCity = citySelect.value;
-        districtSelect.innerHTML = '<option value="">Select a district</option>'; // Reset the district options
+        districtSelect.innerHTML = '<option value="">Select a district</option>';
 
         if (districts[selectedCity]) {
           districts[selectedCity].forEach(function (district) {
