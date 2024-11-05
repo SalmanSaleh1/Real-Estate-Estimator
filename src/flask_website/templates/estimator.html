@@ -158,10 +158,43 @@
         }
       });
 
+      // Submit form data to the API and display the result
       document.querySelector('.estimator-form').addEventListener('submit', function (event) {
         event.preventDefault();
-        resultBox.style.display = 'block'; // Display the result box
-        resultBox.innerHTML = '<h2>Estimated Property Value: 130,680 SAR</h2>';
+        resultBox.style.display = 'block';
+
+        // Collect form data
+        const formData = {
+          area: document.getElementById('area').value,
+          city: document.getElementById('city').value,
+          district: document.getElementById('district').value,
+          mukatat: document.getElementById('mukatat').value,
+          property_classification: document.getElementById('property_classification').value,
+          property_type: document.getElementById('property_type').value,
+          space: document.getElementById('space').value
+        };
+
+        // Send the data to the prediction API
+        fetch('/api/estimate_price', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Display the predicted price
+          if (data.predicted_price) {
+            resultBox.innerHTML = `<h2>Estimated Property Value: ${data.predicted_price.toFixed(2)} SAR</h2>`;
+          } else {
+            resultBox.innerHTML = '<h2>Error calculating estimated property value</h2>';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          resultBox.innerHTML = '<h2>Failed to calculate estimated property value</h2>';
+        });
       });
     });
   </script>

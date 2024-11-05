@@ -115,6 +115,39 @@ def test():
     except Exception as e:
         return jsonify({"error": f"Test prediction failed: {e}"}), 500
 
+# Route to estimator.html 
+@api_blueprint.route('/estimate_price', methods=['POST'])
+def estimate_price():
+    try:
+        # Get JSON data from the request
+        data = request.get_json()
+        
+        # Extract parameters from JSON data
+        area = data.get('area')
+        city = data.get('city')
+        district = data.get('district')
+        Mukatat = data.get('mukatat')
+        space = float(data.get('space', 0))
+        property_classification = data.get('property_classification', 'unknown')
+        property_type = data.get('property_type', 'unknown')
+        
+        # Call the prediction function
+        predicted_price = predict_property_value(
+            area=area,
+            city=city,
+            district=district,
+            Mukatat=Mukatat,
+            space=space,
+            property_classification=property_classification,
+            property_type=property_type
+        )
+        
+        # Return the predicted price
+        return jsonify({"predicted_price": predicted_price}), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Prediction failed: {str(e)}"}), 500
+        
 # Register the blueprint with a URL prefix
 app.register_blueprint(api_blueprint, url_prefix="/api")
 
