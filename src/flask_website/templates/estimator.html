@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <!-- Second row for District and Scheme fields -->
+        <!-- Second row for District and Mukatat fields -->
         <div class="form-row">
           <div class="form-column">
             <div class="form-group">
@@ -58,26 +58,35 @@
 
           <div class="form-column">
             <div class="form-group">
-              <label for="scheme">Scheme:</label>
-              <select name="scheme" id="scheme" class="form-control" required>
-                <option value="residential">Residential</option>
-                <option value="commercial">Commercial</option>
-                <option value="industrial">Industrial</option>
-                <option value="agricultural">Agricultural</option>
-                <option value="mixed-use">Mixed-Use</option>
-              </select>
+              <label for="mukatat">Mukatat:</label>
+              <input type="text" name="mukatat" id="mukatat" placeholder="Enter Mukatat" class="form-control" required>
             </div>
           </div>
         </div>
 
-        <!-- Third row for Land Status field -->
+        <!-- Third row for Property Classification and Property Type fields -->
         <div class="form-row">
           <div class="form-column">
             <div class="form-group">
-              <label for="land_status">Land Status:</label>
-              <select name="land_status" id="land_status" class="form-control" required>
-                <option value="empty">Empty</option>
-                <option value="existing_property">Existing Property</option>
+              <label for="property_classification">Property Classification:</label>
+              <select name="property_classification" id="property_classification" class="form-control" required>
+                <option value="">Select a Classification</option>
+                <option value="سكني">سكني</option>
+                <option value="تجاري">تجاري</option>
+                <option value="زراعي">زراعي</option>
+                <option value="صناعي">صناعي</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-column">
+            <div class="form-group">
+              <label for="property_type">Property Type:</label>
+              <select name="property_type" id="property_type" class="form-control" required>
+                <option value="">Select a Type</option>
+                <option value="أرض">أرض</option>
+                <option value="أرض زراعية">أرض زراعية</option>
+                <option value="شقة">شقة</option>
               </select>
             </div>
           </div>
