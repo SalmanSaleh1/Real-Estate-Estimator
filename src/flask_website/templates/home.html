@@ -11,6 +11,8 @@
   
   <!-- Link to the external CSS for the home page -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pop-up.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -30,6 +32,40 @@
         </button>
     </form>
   </div> -->
+  
+  <!-- Pop-up Template (Hidden initially) -->
+  <div id="popup-template" class="popup-template" style="display: none;">
+    <div class="popup-content">
+        <!-- Parcel Number -->
+        <div class="parcel-number">Parcel Number</div>
+        <hr class="popup-divider">
+
+        <!-- Details Section -->
+        <div class="details-section">
+            <div class="owner-info">
+                <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Owner Icon" class="icon">
+                <span><strong>Owner Name:</strong> <span id="popup-owner"></span></span>
+            </div>
+
+            <div class="distance-info">
+                <img src="https://img.icons8.com/ios-filled/50/000000/ruler.png" alt="Distance Icon" class="icon">
+                <span><strong>Distance:</strong> <span id="popup-distance"></span> m²</span>
+            </div>
+
+            <div class="price-info">
+                <img src="https://img.icons8.com/ios-filled/50/000000/price-tag.png" alt="Price Icon" class="icon">
+                <span><strong>Estimated Price:</strong> <span id="popup-price"></span></span>
+            </div>
+        </div>
+
+        <!-- More Details Button -->
+        <div class="more-details">
+            <button id="more-details-btn" class="more-details-btn">more ></button>
+        </div>
+    </div>
+  </div>
+
+
 
   <!-- Filter Button (Bottom Right) -->
   <button class="map-btn filter-btn" onclick="toggleFilterForm()">⚙️</button>
