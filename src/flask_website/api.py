@@ -77,13 +77,13 @@ def get_info(object_id):
         property_details = Property.query.filter_by(id_object=object_id).first()
         if property_details:
             return {
-                "area": property_details.city_name,
-                "city": property_details.city_name,
+                "area": "منطقة القصيم",
+                "city": "بريده",
                 "district": property_details.district_name,
                 "Mukatat": property_details.subdiv_no,
                 "space": property_details.shape_area,
                 "property_classification": property_details.parcel_land_use,
-                "property_type": "قطعة أرض",
+                "property_type": "أرض", 
                 "Price_per_square_meter": getattr(property_details, 'Price_per_square_meter', None)
             }
         else:
