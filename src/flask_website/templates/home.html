@@ -33,37 +33,65 @@
     </form>
   </div> -->
   
-  <!-- Pop-up Template (Hidden initially) -->
+    <!-- Pop-up Template (Hidden initially) -->
   <div id="popup-template" class="popup-template" style="display: none;">
-    <div class="popup-content">
+    <div class="popup-content" style="
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 280px;
+        box-sizing: border-box;
+    ">
         <!-- Parcel Number -->
-        <div class="parcel-number">Parcel Number</div>
-        <hr class="popup-divider">
-
+        <div class="parcel-number" style="
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 0; /* Remove any top margin */
+            padding-top: 0; /* Remove any top padding */
+        ">
+            Parcel Number
+        </div>
+        <hr class="popup-divider" style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
+      
         <!-- Details Section -->
-        <div class="details-section">
-            <div class="owner-info">
-                <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Owner Icon" class="icon">
-                <span><strong>Owner Name:</strong> <span id="popup-owner"></span></span>
+        <div class="details-section" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="owner-info" style="display: flex; align-items: center; font-size: 13px; color: #333;">
+                <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Owner Icon" style="width: 20px; margin-right: 10px;">
+                <span><strong>Owner Name:</strong> <span id="popup-owner"><em>Not available</em></span></span>
             </div>
-
-            <div class="distance-info">
-                <img src="https://img.icons8.com/ios-filled/50/000000/ruler.png" alt="Distance Icon" class="icon">
-                <span><strong>Distance:</strong> <span id="popup-distance"></span> m²</span>
+          
+            <div class="distance-info" style="display: flex; align-items: center; font-size: 13px; color: #333;">
+                <img src="https://img.icons8.com/ios-filled/50/000000/ruler.png" alt="Distance Icon" style="width: 20px; margin-right: 10px;">
+                <span><strong>Distance:</strong> <span id="popup-distance"><em>Not available</em></span> m²</span>
             </div>
-
-            <div class="price-info">
-                <img src="https://img.icons8.com/ios-filled/50/000000/price-tag.png" alt="Price Icon" class="icon">
-                <span><strong>Estimated Price:</strong> <span id="popup-price"></span></span>
+          
+            <div class="price-info" style="display: flex; align-items: center; font-size: 13px; color: #333;">
+                <img src="https://img.icons8.com/ios-filled/50/000000/price-tag.png" alt="Price Icon" style="width: 20px; margin-right: 10px;">
+                <span><strong>Estimated Price:</strong> <span id="popup-price"><em>Not available</em></span></span>
             </div>
         </div>
-
+      
         <!-- More Details Button -->
-        <div class="more-details">
-            <button id="more-details-btn" class="more-details-btn">more ></button>
+        <div class="more-details" style="text-align: right; margin-top: 10px;">
+            <button id="more-details-btn" class="more-details-btn" style="
+                background-color: transparent;
+                color: #2b2a2a93;
+                border: none;
+                text-decoration: underline;
+                font-size: 13px;
+                cursor: pointer;
+            " onclick="viewMoreDetails(idObject)">More ></button>
         </div>
     </div>
   </div>
+
+
 
 
 
