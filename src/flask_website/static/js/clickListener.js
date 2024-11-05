@@ -1,20 +1,33 @@
 function addClickListener(map) {
-    map.innerMap.data.addListener('click', function(event) {
+    map.innerMap.data.addListener('click', async function(event) {
         // Access property details from the clicked feature
         const idObject = event.feature.getProperty('OBJECTID');
         const ownerName = event.feature.getProperty('OWNERNAME') || "Not available";
         const parcelNo = event.feature.getProperty('PARCEL_NO') || "Parcel Number";
         const shapeArea = event.feature.getProperty('SHAPE.AREA') || "Not available";
-        const estimatedPrice = event.feature.getProperty('ESTIMATED_PRICE') || "Not available";
 
         // Get the pop-up template from HTML and make a clone to edit
         const popupTemplate = document.getElementById('popup-template').cloneNode(true);
         popupTemplate.style.display = 'block'; // Make it visible
 
-        // Populate data into the pop-up
+        // Populate static data into the pop-up
         popupTemplate.querySelector('.parcel-number').textContent = parcelNo;
         popupTemplate.querySelector('#popup-owner').textContent = ownerName;
         popupTemplate.querySelector('#popup-distance').textContent = shapeArea;
+
+        // Fetch the estimated price from the ML API
+        let estimatedPrice = "Not available";
+        try {
+            const response = await fetch(`/api/predict/${idObject}`);
+            if (response.ok) {
+                const data = await response.json();
+                estimatedPrice = data.predicted_price || "Not available";
+            }
+        } catch (error) {
+            console.error("Error fetching estimated price:", error);
+        }
+
+        // Update the estimated price in the pop-up
         popupTemplate.querySelector('#popup-price').textContent = estimatedPrice;
 
         // Set up 'More Details' button with direct event binding
