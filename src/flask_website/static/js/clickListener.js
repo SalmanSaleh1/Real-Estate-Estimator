@@ -21,7 +21,16 @@ function addClickListener(map) {
             const response = await fetch(`/api/predict/${idObject}`);
             if (response.ok) {
                 const data = await response.json();
-                estimatedPrice = data.predicted_price || "Not available";
+                if (data.predicted_price) {
+                    // Format estimated price with commas and two decimal places
+                    const formattedPrice = new Intl.NumberFormat('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }).format(data.predicted_price);
+                    
+                    // Add currency symbol to the right
+                    estimatedPrice = `${formattedPrice} SAR`;
+                }
             }
         } catch (error) {
             console.error("Error fetching estimated price:", error);

@@ -26,7 +26,7 @@
                     <div class="col"><strong>Block No:</strong> {{ property.block_no or "Not available" }}</div>
                     <div class="col"><strong>Land Use Type:</strong> {{ property.parcel_land_use or "Not available" }}</div>
                     <div class="col"><strong>Land Status:</strong> {{ property.parcel_status or "Not available" }}</div>
-                    <div class="col"><strong>Estimated Price:</strong> {{ predicted_price or "Not available" }}</div>
+                    <div class="col"><strong>Estimated Price:</strong> {{ "{:,.2f}".format(predicted_price) if predicted_price else "Not available" }} SAR</div>
                     <div class="col"><strong>Shape Area:</strong> {{ property.shape_area or "Not available" }} m²</div>
                     <div class="col"><strong>City Name:</strong> {{ property.city_name or "Not available" }}</div>
                     <div class="col"><strong>District Name:</strong> {{ property.district_name or "Not available" }}</div>

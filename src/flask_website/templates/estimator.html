@@ -55,14 +55,14 @@
           <div class="form-column">
             <div class="form-group">
               <label for="district"class="highlight-blue">District:</label>
-              <input type="text" name="district" id="district" placeholder="Enter district" class="form-control" required>
+              <input type="text" name="district" id="district" placeholder="Eg: حي القادسية" class="form-control" required>
             </div>
           </div>
 
           <div class="form-column">
             <div class="form-group">
               <label for="mukatat"class="highlight-blue">Mukatat:</label>
-              <input type="text" name="mukatat" id="mukatat" placeholder="Enter Mukatat" class="form-control" required>
+              <input type="text" name="mukatat" id="mukatat" placeholder="Eg: 873" class="form-control" required>
             </div>
           </div>
         </div>
@@ -186,10 +186,11 @@
         .then(data => {
           // Display the predicted price
           if (data.predicted_price) {
-            resultBox.innerHTML = `<h2>Estimated Property Value: ${data.predicted_price.toFixed(2)} SAR</h2>`;
+              resultBox.innerHTML = `<h2>Estimated Property Value: ${data.predicted_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} SAR</h2>`;
           } else {
-            resultBox.innerHTML = '<h2>Error calculating estimated property value</h2>';
+              resultBox.innerHTML = '<h2>Error calculating estimated property value</h2>';
           }
+          
         })
         .catch(error => {
           console.error('Error:', error);
