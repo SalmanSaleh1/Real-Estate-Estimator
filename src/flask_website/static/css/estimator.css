@@ -1,9 +1,9 @@
 /* Estimator page wrapper styling */
 .estimator-wrapper {
-  background-color: white;
+  background-color: #f8f9fa; /* Light background color similar to aboutus.css */
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Match border radius with aboutus.css */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Same shadow effect as aboutus.css */
   max-width: 800px;
   margin: auto;
   margin-top: 50px;
@@ -19,10 +19,11 @@
 
 /* Title styling */
 .estimator-title {
-  font-size: 36px;
+  font-size: 2.5rem; /* Match font size with h1 in aboutus.css */
   font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
+  color: #343a40; /* Dark grey color for the title */
 }
 
 /* Form container styling */
@@ -57,29 +58,30 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  font-size: 1rem; /* Consistent font size with paragraph text in aboutus.css */
+  color: #6c757d; /* Medium grey color for input text */
 }
 
 /* Button styling */
 .btn-primary {
-  background-color: #007bff;
+  background-color: #007bff; /* Muted green color to complement the page's neutral tones */
   color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem; /* Font size for buttons to match text */
 }
 
 /* Button hover effect */
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Slightly darker green for hover effect */
 }
 
 /* Disclaimer styling */
 .disclaimer {
-  font-size: 14px;
-  color: #555;
+  font-size: 1rem; /* Match font size with paragraphs */
+  color: #6c757d; /* Medium grey color for the disclaimer */
   margin-top: 20px;
   text-align: center;
   max-width: 600px;
@@ -87,12 +89,14 @@
 
 /* Result box styling */
 .result-box {
+  display: none; /* Hide the result box by default */
   margin-top: 20px;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f8f9fa; /* Match background color with aboutus.css */
   border: 1px solid #ddd;
   border-radius: 5px;
   text-align: center;
-  font-size: 20px;
+  font-size: 1.25rem; /* Slightly larger for emphasis */
   font-weight: bold;
+  color: #495057; /* Slightly lighter grey for result text */
 }

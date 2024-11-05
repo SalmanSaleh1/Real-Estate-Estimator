@@ -4,18 +4,23 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/property-details.css') }}">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block body %}
     <div id="property-details-container" class="detail-card">
         <header>
-            <h1 class="text-center" style="color: #2C4E71;">Property Details</h1>
+            <h1 class="text-center" style="color: rgba(0, 0, 0, 0.788);">Property Details</h1>
         </header>
         
         <div class="info-wrapper">
             <!-- Essential Property Information Block -->
             <div class="info-section">
-                <p class="card-subtitle" onclick="toggleSection('essential-info')">Essential Property Information</p>
+                <p class="card-subtitle" onclick="toggleSection('essential-info')">
+                    Essential Property Information
+                    <i class="fas fa-plus toggle-icon" id="icon-essential-info"></i>
+                </p>
                 <div id="essential-info" class="row">
                     <div class="col"><strong>Parcel No:</strong> {{ property.parcel_no or "Not available" }}</div>
                     <div class="col"><strong>Block No:</strong> {{ property.block_no or "Not available" }}</div>
@@ -30,7 +35,10 @@
 
             <!-- Additional Property Attributes Block -->
             <div class="info-section">
-                <p class="card-subtitle" onclick="toggleSection('additional-attributes')">Additional Property Attributes</p>
+                <p class="card-subtitle" onclick="toggleSection('additional-attributes')">
+                    Additional Property Attributes
+                    <i class="fas fa-plus toggle-icon" id="icon-additional-attributes"></i>
+                </p>
                 <div id="additional-attributes" class="row" style="display: none;">
                     <div class="col"><strong>Owner Name:</strong> {{ property.owner_name or "Not available" }}</div>
                     <div class="col"><strong>Subdivision Name:</strong> {{ property.subdiv_name or "Not available" }}</div>
@@ -41,7 +49,10 @@
 
             <!-- Administrative and Reference Data Block -->
             <div class="info-section">
-                <p class="card-subtitle" onclick="toggleSection('admin-reference')">Administrative and Reference Data</p>
+                <p class="card-subtitle" onclick="toggleSection('admin-reference')">
+                    Administrative and Reference Data
+                    <i class="fas fa-plus toggle-icon" id="icon-admin-reference"></i>
+                </p>
                 <div id="admin-reference" class="row" style="display: none;">
                     <div class="col"><strong>Coordinates:</strong> {{ property.coordinates or "Not available" }}</div>
                     <div class="col"><strong>Municipality Name:</strong> {{ property.muncp_name or "Not available" }}</div>
@@ -65,7 +76,17 @@
     <script>
         function toggleSection(sectionId) {
             const section = document.getElementById(sectionId);
-            section.style.display = section.style.display === 'none' ? 'flex' : 'none';
+            const icon = document.getElementById('icon-' + sectionId);
+
+            if (section.style.display === 'none') {
+                section.style.display = 'flex';
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+            } else {
+                section.style.display = 'none';
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+            }
         }
     </script>
 {% endblock %}

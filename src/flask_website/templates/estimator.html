@@ -99,6 +99,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       const citySelect = document.getElementById('city');
       const districtSelect = document.getElementById('district');
+      const resultBox = document.getElementById('result');
 
       const districts = {
         'Al-Rass': ['Al-Qadsia', 'Al-Shuhada', 'Al-Rawda', 'Al-Houta'],
@@ -131,7 +132,7 @@
 
       document.querySelector('.estimator-form').addEventListener('submit', function (event) {
         event.preventDefault();
-        const resultBox = document.getElementById('result');
+        resultBox.style.display = 'block'; // Display the result box
         resultBox.innerHTML = '<h2>Estimated Property Value: 130,680 SAR</h2>';
       });
     });
