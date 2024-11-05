@@ -7,91 +7,77 @@ function addClickListener(map) {
         const parcelNo = event.feature.getProperty('PARCEL_NO');
         const blockNo = event.feature.getProperty('BLOCK_NO');
         const shapeArea = event.feature.getProperty('SHAPE.AREA');
+        const estimatedPrice = event.feature.getProperty('ESTIMATED_PRICE'); // Assuming this field exists
 
         if (idObject) {
             // Construct the pop-up content
             const popupContent = `
                 <div style="
-        font-family: Arial, sans-serif;
-        color: #333;
-        background-color: #f9f9f9;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-width: 280px;
-        box-sizing: border-box;
-    ">
-        <h4 style="margin-bottom: 10px; color: #007BFF; text-align: center; font-size: 16px;">Real Estate Details</h4>
-        
-        <div style="
-            display: flex; 
-            flex-direction: column; 
-            gap: 6px;
-        ">
-            <div style="
-                background-color: #fff;
-                padding: 6px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                font-size: 13px;
-                box-sizing: border-box;
-            ">
-                <strong>Owner Name:</strong>
-                <p style="margin: 3px 0;">${ownerName || "<em>Not available</em>"}</p>
-            </div>
+                    font-family: Arial, sans-serif;
+                    color: #333;
+                    background-color: #fff;
+                    padding: 10px;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                    width: 100%;
+                    max-width: 280px;
+                    box-sizing: border-box;
+                ">
+                    <!-- Parcel Number -->
+                    <div style="text-align: center; font-size: 14px; font-weight: bold; color: #000;">
+                        ${parcelNo || "Parcel Number"}
+                    </div>
+                    <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
 
-            <div style="
-                background-color: #fff;
-                padding: 6px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                font-size: 13px;
-                box-sizing: border-box;
-            ">
-                <strong>Parcel No:</strong>
-                <p style="margin: 3px 0;">${parcelNo || "<em>Not available</em>"}</p>
-            </div>
+                    <!-- Details Section -->
+                    <div style="
+                        display: flex; 
+                        flex-direction: column; 
+                        gap: 12px;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            font-size: 13px;
+                            color: #333;
+                        ">
+                            <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Owner Icon" style="width: 20px; margin-right: 10px;">
+                            <span><strong>Owner Name:</strong> ${ownerName || "<em>Not available</em>"}</span>
+                        </div>
 
-            <div style="
-                background-color: #fff;
-                padding: 6px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                font-size: 13px;
-                box-sizing: border-box;
-            ">
-                <strong>Block No:</strong>
-                <p style="margin: 3px 0;">${blockNo || "<em>Not available</em>"}</p>
-            </div>
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            font-size: 13px;
+                            color: #333;
+                        ">
+                            <img src="https://img.icons8.com/ios-filled/50/000000/ruler.png" alt="Distance Icon" style="width: 20px; margin-right: 10px;">
+                            <span><strong>Distance:</strong> ${shapeArea || "<em>Not available</em>"} m²</span>
+                        </div>
 
-            <div style="
-                background-color: #fff;
-                padding: 6px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                font-size: 13px;
-                box-sizing: border-box;
-            ">
-                <strong>Shape Area:</strong>
-                <p style="margin: 3px 0;">${shapeArea || "<em>Not available</em>"} m²</p>
-            </div>
-        </div>
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            font-size: 13px;
+                            color: #333;
+                        ">
+                            <img src="https://img.icons8.com/ios-filled/50/000000/price-tag.png" alt="Price Icon" style="width: 20px; margin-right: 10px;">
+                            <span><strong>Estimated Price:</strong> ${estimatedPrice || "<em>Not available</em>"}</span>
+                        </div>
+                    </div>
 
-        <div style="text-align: center; margin-top: 10px;">
-            <button id="more-details-btn" onclick="viewMoreDetails(${idObject})" style="
-                background-color: #007BFF;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                padding: 7px 10px;
-                cursor: pointer;
-                font-size: 13px;
-                width: 100%;
-                box-sizing: border-box;
-            ">More Details</button>
-        </div>
-    </div>
+                    <!-- More Details Button -->
+                    <div style="text-align: right; margin-top: 10px;">
+                        <button id="more-details-btn" onclick="viewMoreDetails(${idObject})" style="
+                            background-color: transparent;
+                            color: #333;
+                            border: none;
+                            text-decoration: underline;
+                            font-size: 13px;
+                            cursor: pointer;
+                        ">more ></button>
+                    </div>
+                </div>
             `;
 
             // Set the content and position of the pop-up (InfoWindow)
