@@ -26,9 +26,11 @@
 .navbar-menu {
   display: flex;
   gap: 20px; /* Space between navbar items */
+  font-weight: bold; /* Make menu items bold */
 }
 
 .navbar-menu a {
+  margin: 0 20px; /* Adjust margin to control spacing between items */
   text-decoration: none; /* Remove underline from links */
   color: black; /* Font color for navbar links */
   transition: color 0.3s; /* Transition effect on hover */
