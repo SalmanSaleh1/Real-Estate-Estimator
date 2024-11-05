@@ -12,4 +12,6 @@ instance/
 # VS Code
 .vscode/
 
-# 
+# Data files
+*.json
+*.cbm
