@@ -26,7 +26,7 @@
 .about-container p {
     font-size: 1rem; /* Font size for paragraph text */
     line-height: 1.6; /* Increase line height for better readability */
-    color: #6c757d; /* Medium grey color for paragraph text */
+    color: #000000; /* Medium grey color for paragraph text */
 }
 
 .about-container ul {
@@ -37,7 +37,7 @@
 .about-container ul li {
     font-size: 1rem; /* Font size for list items */
     margin-bottom: 10px; /* Space below each list item */
-    color: #6c757d; /* Medium grey color for list items */
+    color: #000000; /* Medium grey color for list items */
 }
 
 .about-container strong {

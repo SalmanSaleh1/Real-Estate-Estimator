@@ -67,7 +67,7 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  color: #6c757d;
+  color: #000000;
 }
 
 /* Button styling */
@@ -111,5 +111,5 @@
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
-  color: #495057;
+  color: #000000;
 }

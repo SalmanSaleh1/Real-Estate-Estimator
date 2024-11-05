@@ -19,9 +19,9 @@
             <div class="info-section">
                 <p class="card-subtitle" onclick="toggleSection('essential-info')">
                     Essential Property Information
-                    <i class="fas fa-plus toggle-icon" id="icon-essential-info"></i>
+                    <i class="fas fa-minus toggle-icon" id="icon-essential-info"></i> <!-- Set to fa-minus initially -->
                 </p>
-                <div id="essential-info" class="row">
+                <div id="essential-info" class="row" style="display: flex;"> <!-- Display open by default -->
                     <div class="col"><strong>Parcel No:</strong> {{ property.parcel_no or "Not available" }}</div>
                     <div class="col"><strong>Block No:</strong> {{ property.block_no or "Not available" }}</div>
                     <div class="col"><strong>Land Use Type:</strong> {{ property.parcel_land_use or "Not available" }}</div>
@@ -64,29 +64,34 @@
             </div>
         </div>
 
-        <!-- Back to Map Button -->
-        <div class="button-container">
-            <a href="/" class="custom-button">Back to Map</a>
-        </div>
-    </div>
-
+ <!-- Back to Map Button -->
+ <div class="button-container">
+    <a href="/" class="custom-button">Back to Map</a>
+</div>
+</div>
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            const icon = document.getElementById('icon-' + sectionId);
+<script>
+function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const icon = document.getElementById('icon-' + sectionId);
 
-            if (section.style.display === 'none') {
-                section.style.display = 'flex';
-                icon.classList.remove('fa-plus');
-                icon.classList.add('fa-minus');
-            } else {
-                section.style.display = 'none';
-                icon.classList.remove('fa-minus');
-                icon.classList.add('fa-plus');
-            }
-        }
-    </script>
+    if (section.style.display === 'none') {
+        section.style.display = 'flex';
+        icon.classList.remove('fa-plus');
+        icon.classList.add('fa-minus');
+    } else {
+        section.style.display = 'none';
+        icon.classList.remove('fa-minus');
+        icon.classList.add('fa-plus');
+    }
+}
+
+// Set icon for initially visible section on page load
+document.addEventListener("DOMContentLoaded", function() {
+    const essentialInfoIcon = document.getElementById('icon-essential-info');
+    essentialInfoIcon.classList.add('fa-minus');
+});
+</script>
 {% endblock %}
