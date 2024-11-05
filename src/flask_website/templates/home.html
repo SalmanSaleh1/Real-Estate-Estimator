@@ -12,7 +12,7 @@
   <!-- Link to the external CSS for the home page -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/pop-up.css') }}">
+
 {% endblock %}
 
 {% block body %}
@@ -72,6 +72,7 @@
   -->
   
   <!-- Filter Form Pop-up (hidden initially) -->
+  <!--
   <div class="filter-form-container" id="filterForm" style="display: none;">
     <form action="/search" method="GET">
       <div class="form-group">
@@ -94,7 +95,8 @@
       </div>
       <button type="submit" class="btn btn-primary">Filter</button>
     </form>
-  </div>
+  </div> 
+  -->
 
   <!-- Google Maps API Loader -->
   <gmpx-api-loader key="API_key" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
@@ -120,11 +122,11 @@
   <script src="{{ url_for('static', filename='js/clickListener.js') }}"></script>
 
   <script>
-    // Toggle Filter Form Pop-up
-    function toggleFilterForm() {
-      const filterForm = document.getElementById('filterForm');
-      filterForm.style.display = (filterForm.style.display === 'none' || filterForm.style.display === '') ? 'block' : 'none';
-    }
+  //  // Toggle Filter Form Pop-up
+  //  function toggleFilterForm() {
+  //    const filterForm = document.getElementById('filterForm');
+  //    filterForm.style.display = (filterForm.style.display === 'none' || filterForm.style.display === '') ? 'block' : 'none';
+  //  } 
   </script>
 {% endblock %}
 
