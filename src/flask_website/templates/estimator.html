@@ -14,45 +14,48 @@
 
       <!-- Form for inputting property details -->
       <form action="/estimate" method="POST" class="estimator-form">
-        <!-- Container for two columns of form inputs -->
+        
+        <!-- Area dropdown -->
         <div class="form-row">
           <div class="form-column">
             <div class="form-group">
-              <label for="total_area">Area (m²):</label>
-              <input type="number" name="total_area" id="total_area" placeholder="Enter area" class="form-control" required>
+              <label for="area">Area:</label>
+              <select name="area" id="area" class="form-control" required>
+                <option value="">Select an area</option>
+                <option value="منطقة الرياض">منطقة الرياض</option>
+                <option value="منطقة مكة المكرمة">منطقة مكة المكرمة</option>
+                <option value="منطقة المدينة المنورة">منطقة المدينة المنورة</option>
+                <option value="منطقة القصيم">منطقة القصيم</option>
+                <option value="المنطقة الشرقية">المنطقة الشرقية</option>
+                <option value="منطقة عسير">منطقة عسير</option>
+                <option value="منطقة تبوك">منطقة تبوك</option>
+                <option value="منطقة حائل">منطقة حائل</option>
+                <option value="منطقة الحدود الشمالية">منطقة الحدود الشمالية</option>
+                <option value="منطقة جازان">منطقة جازان</option>
+                <option value="منطقة نجران">منطقة نجران</option>
+                <option value="منطقة الباحة">منطقة الباحة</option>
+                <option value="منطقة الجوف">منطقة الجوف</option>
+              </select>
             </div>
           </div>
 
+          <!-- City dropdown -->
           <div class="form-column">
             <div class="form-group">
               <label for="city">City:</label>
               <select name="city" id="city" class="form-control" required>
                 <option value="">Select a city</option>
-                <option value="Al-Rass">Al-Rass</option>
-                <option value="Unaizah">Unaizah</option>
-                <option value="Buraidah">Buraidah</option>
-                <option value="Riyadh">Riyadh</option>
-                <option value="Jeddah">Jeddah</option>
-                <option value="Dammam">Dammam</option>
-                <option value="Mecca">Mecca</option>
-                <option value="Medina">Medina</option>
-                <option value="Khobar">Khobar</option>
-                <option value="Taif">Taif</option>
-                <option value="Abha">Abha</option>
-                <option value="Tabuk">Tabuk</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- Second row for District and Mukatat fields -->
+        <!-- District and Mukatat fields -->
         <div class="form-row">
           <div class="form-column">
             <div class="form-group">
               <label for="district">District:</label>
-              <select name="district" id="district" class="form-control" required>
-                <option value="">Select a district</option>
-              </select>
+              <input type="text" name="district" id="district" placeholder="Enter district" class="form-control" required>
             </div>
           </div>
 
@@ -64,7 +67,7 @@
           </div>
         </div>
 
-        <!-- Third row for Property Classification and Property Type fields -->
+        <!-- Property Classification, Property Type, and Space fields -->
         <div class="form-row">
           <div class="form-column">
             <div class="form-group">
@@ -92,6 +95,16 @@
           </div>
         </div>
 
+        <!-- Space field -->
+        <div class="form-row">
+          <div class="form-column">
+            <div class="form-group">
+              <label for="space">Space (m²):</label>
+              <input type="number" name="space" id="space" placeholder="Enter space" class="form-control" required>
+            </div>
+          </div>
+        </div>
+
         <!-- Submit button -->
         <button type="submit" class="btn btn-primary">Calculate Estimated Value</button>
       </form>
@@ -106,35 +119,41 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      const areaSelect = document.getElementById('area');
       const citySelect = document.getElementById('city');
-      const districtSelect = document.getElementById('district');
       const resultBox = document.getElementById('result');
 
-      const districts = {
-        'Al-Rass': ['Al-Qadsia', 'Al-Shuhada', 'Al-Rawda', 'Al-Houta'],
-        'Unaizah': ['Al-Rawabi', 'Al-Safa', 'Al-Rayyan', 'Al-Rawda'],
-        'Buraidah': ['Al-Nakheel', 'Al-Qadsia', 'Al-Nahda', 'Al-Rayan'],
-        'Riyadh': ['Olaya', 'Al-Malaz', 'Al-Naseem', 'Al-Rawda'],
-        'Jeddah': ['Al-Hamra', 'Al-Safa', 'Al-Rehab', 'Al-Baghdadiyah'],
-        'Dammam': ['Al-Faisaliyah', 'Al-Mazrouiah', 'Al-Jubail', 'Al-Rakah'],
-        'Mecca': ['Al-Aziziyah', 'Al-Hijra', 'Al-Zaher', 'Al-Maabdah'],
-        'Medina': ['Al-Manakhah', 'Al-Hijaziyah', 'Al-Awali', 'Al-Safiyah'],
-        'Khobar': ['Al-Aqrabiyah', 'Al-Rakah', 'Al-Thuqbah', 'Al-Rakah'],
-        'Taif': ['Al-Hawiya', 'Al-Shifa', 'Al-Qaim', 'Al-Sail'],
-        'Abha': ['Al-Masarah', 'Al-Nuzhah', 'Al-Faisaliyah', 'Al-Rawabi'],
-        'Tabuk': ['Al-Amir Fahd', 'Al-Morooj', 'Al-Rawdha', 'Al-Abrar']
+      // Define city options based on area selection
+      const citiesByArea = {
+        'منطقة الرياض': ['الافلاج', 'البجاديه', 'الخرج', 'الدرعيه', 'الدلم', 'الدوادمي', 'الرياض', 'الرين', 'الزلفي', 'الغاط', 'المزاحميه', 'حريملاء', 'حوطة بني تميم', 'حوطة سدير', 'رماح', 'شقراء', 'ضرماء', 'عفيف', 'مرات', 'وادي الدواسر'],
+        'منطقة مكة المكرمة': ['الخرمه', 'الطائف', 'القنفذه', 'الليث', 'المويه', 'تربه', 'جده', 'رابغ', 'رنيه', 'مكة المكرمة'],
+        'منطقة المدينة المنورة': ['الحناكية', 'المدينة المنورة', 'وادي الفرع', 'العلا'],
+        'منطقة القصيم': ['البدائع', 'البكيريه', 'الرس', 'المذنب', 'بريده', 'عنيزه'],
+        'المنطقة الشرقية': ['ابقيق', 'الاحساء', 'الجبيل', 'الخبر', 'الخفجي', 'الدمام', 'القطيف', 'النعيريه', 'حفر الباطن', 'رأس تنوره'],
+        'منطقة عسير': ['ابها', 'احد رفيده', 'بلقرن', 'بيشه', 'تثليت', 'خميس مشيط', 'سراة عبيده', 'ظهران الجنوب', 'محايل عسير'],
+        'منطقة تبوك': ['تبوك', 'حقل', 'ضباء', 'تيماء'],
+        'منطقة حائل': ['الحائط', 'بقعاء', 'حائل', 'سميراء', 'جبه'],
+        'منطقة الحدود الشمالية': ['العويقيله', 'طريف', 'عرعر', 'رفحاء'],
+        'منطقة جازان': ['ابو عريش', 'بيش', 'جيزان', 'صامطه', 'الدرب', 'فرسان'],
+        'منطقة نجران': ['ثار', 'شروره', 'نجران', 'يدمه'],
+        'منطقة الباحة': ['الباحه', 'المخواة', 'بلجرشي', 'العرضيه الجنوبيه', 'النماص'],
+        'منطقة الجوف': ['القريات', 'دومة الجندل', 'سكاكا', 'طبرجل']
       };
 
-      citySelect.addEventListener('change', function () {
-        const selectedCity = citySelect.value;
-        districtSelect.innerHTML = '<option value="">Select a district</option>';
+      // Function to update city options based on selected area
+      areaSelect.addEventListener('change', function () {
+        const selectedArea = areaSelect.value;
 
-        if (districts[selectedCity]) {
-          districts[selectedCity].forEach(function (district) {
+        // Clear previous options
+        citySelect.innerHTML = '<option value="">Select a city</option>';
+
+        // Populate city dropdown based on selected area
+        if (citiesByArea[selectedArea]) {
+          citiesByArea[selectedArea].forEach(function (city) {
             const option = document.createElement('option');
-            option.value = district;
-            option.textContent = district;
-            districtSelect.appendChild(option);
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
           });
         }
       });
