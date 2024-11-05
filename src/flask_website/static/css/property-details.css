@@ -1,96 +1,93 @@
-/* Container Style */
+/* Property Details Page Styling */
 .detail-card {
-    margin-top: 50px;
+    background-color: #f8f9fa;
     padding: 20px;
-    background-color: #f8f9fa; /* Light background color */
     border-radius: 8px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 90vh; /* Limits container height to 90% of viewport */
-    overflow-y: auto; /* Enables vertical scrolling when content exceeds */
-    display: flex;
-    flex-direction: column; /* Ensures button stays at the bottom */
-}
-
-/* Main Header Styling */
-header h1 {
-    font-size: 2rem; /* Slightly smaller title */
-    color: #000000; /* Black color for the title */
+    max-width: 900px;
+    margin: auto;
+    margin-top: 50px;
+    max-height: 80vh; /* Limit height to 80% of viewport height */
+    overflow-y: auto; /* Add vertical scrolling if content exceeds max height */
+  }
+  
+  /* Header styling */
+  .text-center {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Section Header (Subtitle) Styling */
-.card-subtitle {
-    font-size: 1.5rem; /* Slightly smaller than before */
-    color: #343a40; /* Dark grey color for subtitles */
+    color: rgba(0, 0, 0, 0.788);
+    font-size: 2rem;
     font-weight: bold;
-    margin-top: 30px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd; /* Thin separator line */
+  }
+  
+  /* Section styling */
+  .info-wrapper {
+    margin-top: 20px;
+  }
+  
+  .info-section {
+    margin-bottom: 20px;
+  }
+  
+  .card-subtitle {
+    font-size: 1.25rem;
+    color: #4a90e2;
     cursor: pointer;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    transition: color 0.3s ease-in-out;
-}
-
-.card-subtitle:hover {
-    color: #495057; /* Slightly lighter grey on hover */
-}
-
-/* Icon Styling */
-.toggle-icon {
-    font-size: 1rem;
-    color: #343a40; /* Dark grey color for consistency */
-}
-
-/* Row and Column Styling for Left-Right Alignment */
-.row {
+    gap: 10px;
+    font-weight: bold;
+  }
+  
+  .toggle-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    transition: max-height 0.3s ease; /* Smooth transition */
-}
-
-.col {
-    flex: 0 0 48%; /* Each column takes 48% of the width to allow for spacing */
+    gap: 15px;
     margin-top: 10px;
-    font-size: 1rem; /* Consistent font size with paragraph text */
-    line-height: 1.6;
-    color: #343a40; /* Dark grey color for text */
-}
-
-/* Strong Text */
-.col strong {
-    color: #343a40; /* Changed emphasized text to dark grey */
-}
-
-/* Custom Button Styling - Positioned at Bottom */
-.button-container {
-    margin-top: auto; /* Pushes the button to the bottom */
-    text-align: right;
-    padding-top: 20px;
-}
-
-.custom-button {
-    font-size: 14px;
-    color: #343a40; /* Dark grey color for button */
+  }
+  
+  .col {
+    flex: 1 1 45%;
+    color: #000000;
+    font-size: 1rem;
+  }
+  
+  /* Label color for each group info */
+  .info-label {
+    color: rgba(0, 0, 0, 0.788); /* Same color as "Property Details" title */
+    font-weight: bold;
+  }
+  
+  /* Centering container for button */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  /* Custom Button styling for "Back to Map" */
+  .custom-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #4a90e2;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
     text-decoration: none;
-    transition: color 0.3s;
-}
-
-.custom-button:hover {
-    color: #495057;
-    text-decoration: underline;
-}
-
-/* Adjustments for smaller screens */
-@media (max-width: 768px) {
-    .col {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-}
+  }
+  
+  .custom-button:hover {
+    background-color: #357ABD;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
