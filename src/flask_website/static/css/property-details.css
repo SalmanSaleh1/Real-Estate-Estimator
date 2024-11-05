@@ -1,88 +1,70 @@
-/* Overall Page */
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
-}
-
-/* Container Styling */
-#property-details-container {
+/* Card Style for Details Container */
+.detail-card {
     padding: 30px;
     background-color: #ffffff;
     margin: 20px auto;
     width: 90%;
-    max-width: 1000px;
+    max-width: 1200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-}
-
-/* Header and Button Positioning */
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    margin-bottom: 20px;
-    max-width: 1000px;
-    margin: 0 auto 20px;
 }
 
-#back-to-map {
-    position: absolute;
-    left: 0;
-    color: #007BFF;
-    background-color: #e9f5ff;
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
-}
-
-#back-to-map:hover {
-    background-color: #007BFF;
-    color: #fff;
-}
-
+/* Header Styling */
 header h1 {
-    font-size: 24px;
-    color: #fff;
-    background-color: #007BFF;
-    padding: 15px 30px;
-    border-radius: 8px;
-    margin: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 28px;
+    font-weight: bold;
+    color: #2C4E71;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-/* Two-Column Layout for Information */
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+/* Subtitle Styling */
+.card-subtitle {
+    font-size: 1.1rem;
+    color: #007bff;
+    font-weight: 500;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
 }
 
-.info-column {
-    list-style-type: none;
-    padding: 0;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.card-subtitle:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
 
-li {
-    margin: 15px 0;
+/* Row and Column Styling for Left-Right Alignment */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    transition: max-height 0.3s ease; /* Smooth transition */
+}
+
+.col {
+    flex: 0 0 48%; /* Each column takes 48% of the width to allow for spacing */
+    margin-top: 10px;
+}
+
+/* Custom Button Styling */
+.custom-button {
+    padding: 10px 20px;
     font-size: 16px;
-    color: #333;
-    line-height: 1.6;
+    color: #2C4E71;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
-/* Highlight Important Fields */
-.info-column:first-child li:nth-child(-n+4) {
-    font-size: 17px;
-    font-weight: bold;
-    color: #444;
+.custom-button:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
