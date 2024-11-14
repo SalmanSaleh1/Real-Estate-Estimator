@@ -25,6 +25,11 @@ class Property(db.Model):
     split_type = db.Column(db.String(10), nullable=True)  # Split type (nullable)
     subdiv_type = db.Column(db.String(50), nullable=True)  # Subdivision type (nullable)
     muncp_desc = db.Column(db.String(255), nullable=True)  # Municipality description (nullable)
+    property_type = db.Column(db.String(50), nullable=True)  # Property type (nullable)
+    Price_per_square_meter = db.Column(db.Numeric(10, 2), nullable=True)  # Price per square meter (nullable)
+    area = db.Column(db.String(255), nullable=True)  # Area (nullable)
 
     def __repr__(self):
-        return f"<Property {self.id}, {self.owner_name}>"
+        return (f"<Property id={self.id}, id_object={self.id_object}, owner_name='{self.owner_name}', "
+                f"city_name='{self.city_name}', parcel_status='{self.parcel_status}', "
+                f"property_type='{self.property_type}', Price_per_square_meter={self.Price_per_square_meter}>")

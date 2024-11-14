@@ -21,5 +21,8 @@ CREATE TABLE IF NOT EXISTS properties (
     construction_type VARCHAR(50) NULL,  -- Construction type (nullable)
     split_type VARCHAR(10) NULL,  -- Split type (nullable)
     subdiv_type VARCHAR(50) NULL,  -- Subdivision type (nullable)
-    muncp_desc VARCHAR(255) NULL  -- Municipality description (nullable)
+    muncp_desc VARCHAR(255) NULL,  -- Municipality description (nullable)
+    property_type VARCHAR(50) NULL,  -- Property type (nullable)
+    Price_per_square_meter DOUBLE NULL,  -- Price per square meter (nullable)
+    area VARCHAR(255) NULL  -- Area (nullable)
 );
