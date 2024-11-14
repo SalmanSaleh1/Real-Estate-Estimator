@@ -4,7 +4,6 @@ USE ree;
 CREATE TABLE IF NOT EXISTS properties (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,  -- Primary key with auto-increment
     id_object INT UNIQUE NOT NULL,  -- id_object must be unique and not null
-    coordinates JSON NULL,  -- Coordinates field (nullable)
     shape_area DOUBLE NULL,  -- Shape area (nullable)
     owner_name VARCHAR(255) NULL,  -- Owner's name (nullable)
     parcel_land_use VARCHAR(50) NULL,  -- Land use type (nullable)
@@ -17,9 +16,6 @@ CREATE TABLE IF NOT EXISTS properties (
     block_no VARCHAR(50) NULL,  -- Block number (nullable)
     subdiv_no VARCHAR(50) NULL,  -- Subdivision number (nullable)
     parcel_no VARCHAR(50) NULL,  -- Parcel number (nullable)
-    notes TEXT NULL,  -- Notes (nullable)
-    construction_type VARCHAR(50) NULL,  -- Construction type (nullable)
-    split_type VARCHAR(10) NULL,  -- Split type (nullable)
     subdiv_type VARCHAR(50) NULL,  -- Subdivision type (nullable)
     muncp_desc VARCHAR(255) NULL,  -- Municipality description (nullable)
     property_type VARCHAR(50) NULL,  -- Property type (nullable)
