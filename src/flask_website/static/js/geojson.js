@@ -1,10 +1,10 @@
-let infoWindow;  // Declare the infoWindow variable globally
+let infoWindow; // Declare the infoWindow variable globally
 
-// Function to open an IndexedDB database
+// Open IndexedDB
 function openIndexedDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("GeoJSONData", 1);
-        
+
         request.onupgradeneeded = (e) => {
             const db = e.target.result;
             if (!db.objectStoreNames.contains("geojson")) {
@@ -12,96 +12,94 @@ function openIndexedDB() {
             }
         };
 
-        request.onsuccess = (e) => {
-            resolve(e.target.result);
-        };
-
-        request.onerror = (e) => {
-            reject(e);
-        };
+        request.onsuccess = (e) => resolve(e.target.result);
+        request.onerror = reject;
     });
 }
 
-// Function to get GeoJSON from IndexedDB
+// Get GeoJSON from IndexedDB
 async function getGeoJSONFromDB() {
-    const db = await openIndexedDB();
-    return new Promise((resolve, reject) => {
+    try {
+        const db = await openIndexedDB();
         const transaction = db.transaction("geojson", "readonly");
         const store = transaction.objectStore("geojson");
-        const request = store.get(1);  // Assuming we only store one item with id=1
-
-        request.onsuccess = (e) => {
-            resolve(e.target.result ? e.target.result.data : null);
-        };
-
-        request.onerror = (e) => {
-            reject(e);
-        };
-    });
+        return new Promise((resolve, reject) => {
+            const request = store.get(1);
+            request.onsuccess = (e) => resolve(e.target.result?.data || null);
+            request.onerror = reject;
+        });
+    } catch (error) {
+        console.error("Error accessing IndexedDB:", error);
+        return null;
+    }
 }
 
-// Function to save GeoJSON to IndexedDB
+// Save GeoJSON to IndexedDB
 async function saveGeoJSONToDB(geojsonData) {
-    const db = await openIndexedDB();
-    return new Promise((resolve, reject) => {
+    try {
+        const db = await openIndexedDB();
         const transaction = db.transaction("geojson", "readwrite");
         const store = transaction.objectStore("geojson");
-        const request = store.put({ id: 1, data: geojsonData });
-
-        request.onsuccess = () => {
-            resolve();
-        };
-
-        request.onerror = (e) => {
-            reject(e);
-        };
-    });
+        return new Promise((resolve, reject) => {
+            const request = store.put({ id: 1, data: geojsonData });
+            request.onsuccess = resolve;
+            request.onerror = reject;
+        });
+    } catch (error) {
+        console.error("Error saving data to IndexedDB:", error);
+    }
 }
 
-// Function to load and style the GeoJSON data
+// Load and Style GeoJSON Data
 async function loadGeoJSON(map) {
     const loadingIndicator = document.getElementById('loading-indicator');
+
+    let geojsonData;
 
     try {
         // Show loading indicator
         loadingIndicator.style.display = 'block';
 
-        // Check if the GeoJSON data is cached in IndexedDB
-        let geojsonData = await getGeoJSONFromDB();
-        if (!geojsonData) {
-            // If not cached, fetch the GeoJSON file
-            const response = await fetch('/static/geojson/TestPrint1.json');
+        // Start both IndexedDB retrieval and fetch in parallel
+        const dbPromise = getGeoJSONFromDB();
+        const fetchPromise = fetch('/static/geojson/TestPrint_new.json');
 
-            // Check if the response is OK
-            if (!response.ok) {
-                console.error(`HTTP error! Status: ${response.status}`);
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+        // Attempt to get cached data
+        geojsonData = await dbPromise;
+
+        // If no cached data, wait for the fetch response
+        if (!geojsonData) {
+            const response = await fetchPromise;
+
+            // Validate response
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             geojsonData = await response.json();
 
-            // Cache the GeoJSON data in IndexedDB
-            await saveGeoJSONToDB(geojsonData);
+            // Save to IndexedDB asynchronously
+            saveGeoJSONToDB(geojsonData).catch(console.error);
         }
 
         // Add GeoJSON data to the map
-        map.innerMap.data.addGeoJson(geojsonData);
+        const geoJsonFeatures = map.innerMap.data.addGeoJson(geojsonData);
 
-        // Style the GeoJSON data
+        // Style GeoJSON data
         map.innerMap.data.setStyle({
             fillColor: 'yellow',
             strokeColor: 'black',
-            strokeWeight: 1
+            strokeWeight: 1,
         });
 
-        console.log("GeoJSON data loaded and styled successfully.");
+        console.log(`Loaded and styled ${geoJsonFeatures.length} features successfully.`);
 
-        // Initialize the InfoWindow object (must be done after the map is ready)
-        infoWindow = new google.maps.InfoWindow();
+        // Initialize InfoWindow lazily
+        if (!infoWindow) infoWindow = new google.maps.InfoWindow();
 
-        // Call the function to add the click listener after GeoJSON data is loaded
-        addClickListener(map);  // Call the click listener with the map reference
-
+        // Add click listener if not already added
+        if (!map.innerMap.__clickListenerAdded) {
+            addClickListener(map);
+            map.innerMap.__clickListenerAdded = true; // Flag to prevent duplicate listeners
+        }
     } catch (error) {
         console.error("Error loading GeoJSON data:", error);
     } finally {
