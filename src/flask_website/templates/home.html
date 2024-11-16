@@ -49,11 +49,11 @@
         <!-- Parcel Number -->
         <div class="parcel-number" style="
             text-align: center;
-            font-size: 14px;
+            font-size: 18px;
             font-weight: bold;
             color: #000;
-            margin-top: 0; /* Remove any top margin */
-            padding-top: 0; /* Remove any top padding */
+            margin-top: 0;
+            padding-top: 0;
         ">
             Parcel Number
         </div>
@@ -61,28 +61,45 @@
       
         <!-- Details Section -->
         <div class="details-section" style="display: flex; flex-direction: column; gap: 12px;">
-            <div class="owner-info" style="display: flex; align-items: center; font-size: 13px; color: #333;">
-                <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Owner Icon" style="width: 20px; margin-right: 10px;">
-                <span><strong>Owner Name:</strong> <span id="popup-owner"><em>Not available</em></span></span>
+            <div class="district-info" style="
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+            ">
+                <img src="https://img.icons8.com/ios-filled/50/000000/place-marker--v1.png" alt="District Icon" style="width: 20px; margin-right: 10px;">
+                <span><strong>District:</strong> <span id="popup-owner"><em>Not available</em></span></span>
             </div>
           
-            <div class="distance-info" style="display: flex; align-items: center; font-size: 13px; color: #333;">
+            <div class="distance-info" style="
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+            ">
                 <img src="https://img.icons8.com/ios-filled/50/000000/ruler.png" alt="Distance Icon" style="width: 20px; margin-right: 10px;">
-                <span><strong>Distance:</strong> <span id="popup-distance"><em>Not available</em></span> m²</span>
+                <span><strong>Space:</strong> <span id="popup-distance"><em>Not available</em></span> m²</span>
             </div>
           
-            <div class="price-info" style="display: flex; align-items: center; font-size: 13px; color: #333;">
+            <div class="price-info" style="
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+                font-weight: bold;
+            ">
                 <img src="https://img.icons8.com/ios-filled/50/000000/price-tag.png" alt="Price Icon" style="width: 20px; margin-right: 10px;">
-                <span><strong>Estimated Price:</strong> <span id="popup-price"><em>Not available</em></span></span>
+                <span><strong>Estimated Price:</strong> <span id="popup-price" style="font-size: 18px; font-weight: bold; color: green;"><em>Not available</em></span></span>
             </div>
         </div>
       
         <!-- More Details Button -->
         <div class="more-details" style="text-align: right; margin-top: 10px;">
           <button id="more-details-btn" class="more-details-btn" style="
-              background-color: #4a90e2; /* Light blue background */
-              color: #ffffff; /* Blue text color */
-              border: 1px solid #4a90e2; /* Blue border */
+              background-color: #4a90e2;
+              color: #ffffff;
+              border: 1px solid #4a90e2;
               padding: 5px 10px;
               border-radius: 5px;
               font-size: 13px;
@@ -90,8 +107,6 @@
               text-decoration: none;
           " onclick="viewMoreDetails(idObject)">More details </button>
         </div>
-        
-        
     </div>
   </div>
 
