@@ -42,8 +42,9 @@
                 <div id="additional-attributes" class="row" style="display: none;">
                     <div class="col"><strong>Owner Name:</strong> {{ property.owner_name or "Not available" }}</div>
                     <div class="col"><strong>Subdivision Name:</strong> {{ property.subdiv_name or "Not available" }}</div>
-                    <div class="col"><strong>Construction Type:</strong> {{ property.construction_type or "Not available" }}</div>
-                    <div class="col"><strong>Split Type:</strong> {{ property.split_type or "Not available" }}</div>
+                    <div class="col"><strong>Property Type:</strong> {{ property.property_type or "Not available" }}</div>
+                    <div class="col"><strong>Price Per Square Meter:</strong> {{ "{:,.2f}".format(property.price_per_square_meter) if property.price_per_square_meter else "Not available" }} SAR/m²</div>
+                    <div class="col"><strong>Area:</strong> {{ property.area or "Not available" }} </div>
                 </div>
             </div>
 
@@ -54,7 +55,6 @@
                     <i class="fas fa-plus toggle-icon" id="icon-admin-reference"></i>
                 </p>
                 <div id="admin-reference" class="row" style="display: none;">
-                    <div class="col"><strong>Coordinates:</strong> {{ property.coordinates or "Not available" }}</div>
                     <div class="col"><strong>Municipality Name:</strong> {{ property.muncp_name or "Not available" }}</div>
                     <div class="col"><strong>Municipality ID:</strong> {{ property.muncp_id or "Not available" }}</div>
                     <div class="col"><strong>Subdivision No:</strong> {{ property.subdiv_no or "Not available" }}</div>
