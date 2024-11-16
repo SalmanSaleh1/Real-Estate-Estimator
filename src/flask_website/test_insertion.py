@@ -5,6 +5,7 @@ import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.exc import SQLAlchemyError
 
 # Configuration for the database
 HOSTNAME = os.environ.get('HOSTNAME', 'localhost')
@@ -30,12 +31,11 @@ class TestInsertion(unittest.TestCase):
 
         with self.app.app_context():
             self.base.prepare(autoload_with=self.db.engine)
-            self.db.create_all()
 
     def test_insert_properties_from_geojson(self):
         """Test inserting data from a GeoJSON file into the properties table"""
         geojson_file = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), 'static/geojson/Updated_TestPrint_with_ESTIMATED_PRICE.json')
+            os.path.join(os.path.dirname(__file__), 'static/geojson/Formated_final.json')
         )
 
         # Load the GeoJSON data
@@ -48,64 +48,70 @@ class TestInsertion(unittest.TestCase):
         with self.app.app_context():
             success_count = 0
             failure_count = 0
-            batch_size = 100
+            batch_size = 1000  # Adjust as needed for performance
 
-            for idx, feature in enumerate(geojson_data['features']):
-                try:
-                    # Data Cleaning: Handle potential issues with missing or malformed fields
-                    price_per_sqm_raw = feature.get('properties.Price_per_square_meter')
+            # Extract features
+            features = geojson_data['features']
+            total_features = len(features)
+            logging.info(f"Total features to process: {total_features}")
+
+            # Process records in batches
+            for i in range(0, total_features, batch_size):
+                batch = features[i:i + batch_size]
+                insert_data = []
+
+                for feature in batch:
                     try:
+                        # Extract and clean data
+                        price_per_sqm_raw = feature.get('properties.Price_per_square_meter')
                         price_per_sqm = float(price_per_sqm_raw) if price_per_sqm_raw else None
-                    except ValueError:
-                        logging.warning(f"Invalid Price_per_square_meter value for feature ID {feature.get('id')}: {price_per_sqm_raw}")
-                        price_per_sqm = None
 
-                    # Other fields
-                    shape_area_raw = feature.get('properties.SHAPE.AREA')
-                    shape_area = float(shape_area_raw.replace(',', '')) if shape_area_raw else None
+                        shape_area_raw = feature.get('properties.SHAPE.AREA')
+                        shape_area = float(shape_area_raw.replace(',', '')) if shape_area_raw else None
 
-                    muncp_id = int(feature.get('properties.MUNCP_ID')) if feature.get('properties.MUNCP_ID') else None
+                        muncp_id = int(feature.get('properties.MUNCP_ID')) if feature.get('properties.MUNCP_ID') else None
 
-                    # Create a new `Property` instance with the cleaned fields
-                    new_property = Property(
-                        shape_area=shape_area,
-                        owner_name=feature.get('properties.OWNERNAME'),
-                        parcel_land_use=feature.get('properties.PARCEL_LANDUSE'),
-                        district_name=feature.get('properties.DISTRICT_NAME_D'),
-                        subdiv_name=feature.get('properties.SUBDIV_NAME'),
-                        city_name=feature.get('properties.CITY_NAME'),
-                        muncp_name=feature.get('properties.MUNCP_NAME'),
-                        parcel_status=feature.get('properties.PARCEL_STATUS'),
-                        muncp_id=muncp_id,
-                        block_no=feature.get('properties.BLOCK_NO'),
-                        subdiv_no=feature.get('properties.SUBDIV_NO'),
-                        parcel_no=feature.get('properties.PARCEL_NO'),
-                        subdiv_type=feature.get('properties.SUBDIV_TYPE') or None,
-                        muncp_desc=feature.get('properties.MUNCP_DESC'),
-                        id_object=feature.get('properties.OBJECTID'),
-                        property_type=feature.get('properties.property_type'),
-                        Price_per_square_meter=price_per_sqm,
-                        area=feature.get('properties.area')
-                    )
+                        # Prepare data for bulk insertion
+                        insert_data.append({
+                            'shape_area': shape_area,
+                            'owner_name': feature.get('properties.OWNERNAME'),
+                            'parcel_land_use': feature.get('properties.PARCEL_LANDUSE'),
+                            'district_name': feature.get('properties.DISTRICT_NAME_D'),
+                            'subdiv_name': feature.get('properties.SUBDIV_NAME'),
+                            'city_name': feature.get('properties.CITY_NAME'),
+                            'muncp_name': feature.get('properties.MUNCP_NAME'),
+                            'parcel_status': feature.get('properties.PARCEL_STATUS'),
+                            'muncp_id': muncp_id,
+                            'block_no': feature.get('properties.BLOCK_NO'),
+                            'subdiv_no': feature.get('properties.SUBDIV_NO'),
+                            'parcel_no': feature.get('properties.PARCEL_NO'),
+                            'subdiv_type': feature.get('properties.SUBDIV_TYPE') or None,
+                            'muncp_desc': feature.get('properties.MUNCP_DESC'),
+                            'id_object': feature.get('properties.OBJECTID'),
+                            'property_type': feature.get('properties.property_type'),
+                            'Price_per_square_meter': price_per_sqm,
+                            'area': feature.get('properties.area')
+                        })
+                        success_count += 1
 
-                    # Add the property to the session
-                    self.db.session.add(new_property)
-                    success_count += 1
+                    except Exception as e:
+                        logging.error(f"Error processing feature ID {feature.get('id')}: {e}")
+                        failure_count += 1
 
-                    # Commit in batches
-                    if (idx + 1) % batch_size == 0:
-                        self.db.session.commit()
+                # Commit the batch
+                try:
+                    self.db.session.bulk_insert_mappings(Property, insert_data)
+                    self.db.session.commit()
+                    logging.info(f"Batch {i // batch_size + 1} committed successfully.")
+                except SQLAlchemyError as e:
+                    logging.error(f"Failed to insert batch {i // batch_size + 1}: {e}")
+                    self.db.session.rollback()
+                    # Reduce success count for failed batch
+                    success_count -= len(insert_data)
 
-                except Exception as e:
-                    logging.error(f"Error processing feature ID {feature.get('id')}: {e}")
-                    failure_count += 1
-
-            # Final commit for any remaining features
-            self.db.session.commit()
-
-            # Log results for verification
             logging.info(f"Successfully inserted {success_count} properties.")
             logging.info(f"Failed to insert {failure_count} properties.")
+            logging.info(f"Total properties processed: {success_count + failure_count}")
 
     def tearDown(self):
         """Clean up after tests"""
