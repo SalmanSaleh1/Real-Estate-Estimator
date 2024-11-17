@@ -62,8 +62,8 @@ def ml_api(object_id):
             district=property_info['district'],
             Mukatat=property_info['Mukatat'],
             space=float(property_info['space']),
-            property_classification=property_info.get('property_classification', 'unknown'),
-            property_type=property_info.get('property_type', 'unknown'),
+            property_classification=property_info.get('property_classification', None),
+            property_type=property_info.get('property_type', None),
             Price_per_square_meter=property_info.get('Price_per_square_meter', None)
         )
         return jsonify({"predicted_price": prediction})
