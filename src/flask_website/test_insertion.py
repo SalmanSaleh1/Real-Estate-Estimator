@@ -62,35 +62,37 @@ class TestInsertion(unittest.TestCase):
 
                 for feature in batch:
                     try:
-                        # Extract and clean data
-                        price_per_sqm_raw = feature.get('properties.Price_per_square_meter')
+                        # Extract and clean data from GeoJSON properties
+                        properties = feature['properties']
+
+                        price_per_sqm_raw = properties.get('Price_per_square_meter')
                         price_per_sqm = float(price_per_sqm_raw) if price_per_sqm_raw else None
 
-                        shape_area_raw = feature.get('properties.SHAPE.AREA')
+                        shape_area_raw = properties.get('SHAPE.AREA')
                         shape_area = float(shape_area_raw.replace(',', '')) if shape_area_raw else None
 
-                        muncp_id = int(feature.get('properties.MUNCP_ID')) if feature.get('properties.MUNCP_ID') else None
+                        muncp_id = int(properties.get('MUNCP_ID')) if properties.get('MUNCP_ID') else None
 
                         # Prepare data for bulk insertion
                         insert_data.append({
                             'shape_area': shape_area,
-                            'owner_name': feature.get('properties.OWNERNAME'),
-                            'parcel_land_use': feature.get('properties.PARCEL_LANDUSE'),
-                            'district_name': feature.get('properties.DISTRICT_NAME_D'),
-                            'subdiv_name': feature.get('properties.SUBDIV_NAME'),
-                            'city_name': feature.get('properties.CITY_NAME'),
-                            'muncp_name': feature.get('properties.MUNCP_NAME'),
-                            'parcel_status': feature.get('properties.PARCEL_STATUS'),
+                            'owner_name': properties.get('OWNERNAME'),
+                            'parcel_land_use': properties.get('PARCEL_LANDUSE'),
+                            'district_name': properties.get('DISTRICT_NAME_D'),
+                            'subdiv_name': properties.get('SUBDIV_NAME'),
+                            'city_name': properties.get('CITY_NAME'),
+                            'muncp_name': properties.get('MUNCP_NAME'),
+                            'parcel_status': properties.get('PARCEL_STATUS'),
                             'muncp_id': muncp_id,
-                            'block_no': feature.get('properties.BLOCK_NO'),
-                            'subdiv_no': feature.get('properties.SUBDIV_NO'),
-                            'parcel_no': feature.get('properties.PARCEL_NO'),
-                            'subdiv_type': feature.get('properties.SUBDIV_TYPE') or None,
-                            'muncp_desc': feature.get('properties.MUNCP_DESC'),
-                            'id_object': feature.get('properties.OBJECTID'),
-                            'property_type': feature.get('properties.property_type'),
+                            'block_no': properties.get('BLOCK_NO'),
+                            'subdiv_no': properties.get('SUBDIV_NO'),
+                            'parcel_no': properties.get('PARCEL_NO'),
+                            'subdiv_type': properties.get('SUBDIV_TYPE') or None,
+                            'muncp_desc': properties.get('MUNCP_DESC'),
+                            'id_object': properties.get('OBJECTID'),
+                            'property_type': properties.get('property_type'),
                             'Price_per_square_meter': price_per_sqm,
-                            'area': feature.get('properties.area')
+                            'area': properties.get('area')
                         })
                         success_count += 1
 

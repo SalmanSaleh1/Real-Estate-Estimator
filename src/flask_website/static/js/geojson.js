@@ -62,7 +62,7 @@ async function loadGeoJSON(map) {
 
         // Start both IndexedDB retrieval and fetch in parallel
         const dbPromise = getGeoJSONFromDB();
-        const fetchPromise = fetch('/static/geojson/TestPrint_new.json');
+        const fetchPromise = fetch('/static/geojson/Formated_final.json');
 
         // Attempt to get cached data
         geojsonData = await dbPromise;

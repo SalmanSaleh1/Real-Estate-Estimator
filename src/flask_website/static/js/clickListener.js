@@ -1,7 +1,7 @@
 function addClickListener(map) {
     map.innerMap.data.addListener('click', async function(event) {
         const idObject = event.feature.getProperty('OBJECTID');
-        const district = event.feature.getProperty('DISTRICT') || "Not available";
+        const district = event.feature.getProperty('DISTRICT_NAME_D') || "Not available";
         const parcelNo = event.feature.getProperty('PARCEL_NO') || "Parcel Number";
         const shapeArea = event.feature.getProperty('SHAPE.AREA') || "Not available";
 
