@@ -11,13 +11,12 @@
   
   <!-- Link to the external CSS for the home page -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-
-
 {% endblock %}
 
 {% block body %}
-  <div class="filter-form-container">
-    <form id="filterForm">
+  <div class="filter-form-container" id="filterForm" style="display: none;">
+    <button class="close-btn" id="closeFilterForm">×</button>
+    <form>
         <!-- Price Range -->
         <div class="form-group">
             <label for="minPrice">Min Price:</label>
@@ -60,25 +59,8 @@
         </p>
     </form>
   </div>
-
-  <!-- Search Bar (Top Left, below the Navbar) 
-  <div class="search-bar-container">
-    <form class="form">
-        <button>
-            <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
-                <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-        </button>
-        <input class="input" placeholder="Type your text" required="" type="text">
-        <button class="reset" type="reset">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-    </form>
-  </div> -->
   
-    <!-- Pop-up Template (Hidden initially) -->
+  <!-- Pop-up Template (Hidden initially) -->
   <div id="popup-template" class="popup-template" style="display: none;">
     <div class="popup-content" style="
         font-family: Arial, sans-serif;
@@ -150,45 +132,10 @@
               font-size: 13px;
               cursor: pointer;
               text-decoration: none;
-          " onclick="viewMoreDetails(idObject)">More details </button>
+          " onclick="viewMoreDetails(idObject)">More details</button>
         </div>
     </div>
   </div>
-
-
-
-
-
-  <!-- Filter Button (Bottom Right) 
-  <button class="map-btn filter-btn" onclick="toggleFilterForm()">⚙️</button>
-  -->
-  
-  <!-- Filter Form Pop-up (hidden initially) -->
-  <!--
-  <div class="filter-form-container" id="filterForm" style="display: none;">
-    <form action="/search" method="GET">
-      <div class="form-group">
-        <label for="min_price">Min Price:</label>
-        <input type="number" name="min_price" id="min_price" placeholder="Min Price" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="max_price">Max Price:</label>
-        <input type="number" name="max_price" id="max_price" placeholder="Max Price" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="property_type">Property Type:</label>
-        <select name="property_type" id="property_type" class="form-control">
-          <option value="house">House</option>
-          <option value="apartment">Apartment</option>
-          <option value="land">Land</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
-  </div> 
-  -->
 
   <!-- Google Maps API Loader -->
   <gmpx-api-loader key="API_key" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
@@ -205,6 +152,24 @@
     </div>
     <gmp-advanced-marker></gmp-advanced-marker>
   </gmp-map>
+
+  <!-- Filter Button -->
+  <button id="filterToggleButton" class="filter-toggle-button" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1000;
+  ">
+    ⚙️ Filters
+  </button>
 {% endblock %}
 
 {% block scripts %}
@@ -214,11 +179,17 @@
   <script src="{{ url_for('static', filename='js/clickListener.js') }}"></script>
 
   <script>
-  //  // Toggle Filter Form Pop-up
-  //  function toggleFilterForm() {
-  //    const filterForm = document.getElementById('filterForm');
-  //    filterForm.style.display = (filterForm.style.display === 'none' || filterForm.style.display === '') ? 'block' : 'none';
-  //  } 
+    // Toggle Filter Form Visibility
+    const filterToggleButton = document.getElementById('filterToggleButton');
+    const filterForm = document.getElementById('filterForm');
+
+    filterToggleButton.addEventListener('click', () => {
+      filterForm.style.display = filterForm.style.display === 'block' ? 'none' : 'block';
+    });
+
+    const closeFilterForm = document.getElementById('closeFilterForm');
+    closeFilterForm.addEventListener('click', () => {
+        filterForm.style.display = 'none';
+    });
   </script>
 {% endblock %}
-
