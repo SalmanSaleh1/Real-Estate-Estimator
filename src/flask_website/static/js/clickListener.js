@@ -1,5 +1,10 @@
 function addClickListener(map) {
-    map.innerMap.data.addListener('click', async function(event) {
+    if (!infoWindow) {
+        // Initialize infoWindow if not already initialized
+        infoWindow = new google.maps.InfoWindow();
+    }
+
+    map.innerMap.data.addListener('click', async function (event) {
         const idObject = event.feature.getProperty('OBJECTID');
         const district = event.feature.getProperty('DISTRICT_NAME_D') || "Not available";
         const parcelNo = event.feature.getProperty('PARCEL_NO') || "Parcel Number";
@@ -24,7 +29,7 @@ function addClickListener(map) {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     }).format(data.predicted_price);
-                    
+
                     estimatedPrice = `${formattedPrice} SAR`;
                     const priceElement = popupTemplate.querySelector('#popup-price');
 
@@ -45,15 +50,17 @@ function addClickListener(map) {
         priceElement.textContent = estimatedPrice;
 
         const moreDetailsBtn = popupTemplate.querySelector('.more-details-btn');
-        moreDetailsBtn.addEventListener('click', function() {
+        moreDetailsBtn.addEventListener('click', function () {
             viewMoreDetails(idObject);
         });
 
+        // Ensure infoWindow is properly initialized before setting content and position
         infoWindow.setContent(popupTemplate);
         infoWindow.setPosition(event.latLng);
         infoWindow.open(map.innerMap);
     });
 }
+
 
 function viewMoreDetails(idObject) {
     window.location.href = `/property/${idObject}`;

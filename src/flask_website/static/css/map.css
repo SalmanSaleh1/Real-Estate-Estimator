@@ -4,4 +4,46 @@ gmp-map {
     width: 100%;
     display: block;
   }
-  
+
+  .filter-form-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.filter-form-container .form-group {
+    margin-bottom: 10px;
+}
+
+.filter-form-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-form-container input, .filter-form-container select {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.filter-form-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.filter-form-container button:hover {
+    background-color: #0056b3;
+}

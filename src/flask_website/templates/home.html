@@ -16,6 +16,49 @@
 {% endblock %}
 
 {% block body %}
+  <div class="filter-form-container">
+    <form id="filterForm">
+      <!-- Price Range -->
+      <div class="form-group">
+        <label for="minPrice">Min Price:</label>
+        <input type="number" id="minPrice" placeholder="Min Price">
+      </div>
+      <div class="form-group">
+        <label for="maxPrice">Max Price:</label>
+        <input type="number" id="maxPrice" placeholder="Max Price">
+      </div>
+
+      <!-- Property Type -->
+      <div class="form-group">
+        <label for="propertyType">Property Type:</label>
+        <select id="propertyType">
+          <option value="">All</option>
+          <option value="أرض">Land</option>
+          <option value="أرض زراعية">Agricultural Land</option>
+          <option value="شقة">Apartment</option>
+        </select>
+      </div>
+      
+      
+
+      <!-- Shape Area -->
+      <div class="form-group">
+        <label for="minShapeArea">Min Shape Area:</label>
+        <input type="number" id="minShapeArea" placeholder="Min Area">
+      </div>
+      <div class="form-group">
+        <label for="maxShapeArea">Max Shape Area:</label>
+        <input type="number" id="maxShapeArea" placeholder="Max Area">
+      </div>
+
+      <!-- Filter Button -->
+      <button type="button" id="applyFilters">Apply Filters</button>
+
+      <!-- Remove Filters Button -->
+      <button type="button" id="removeFilters">Remove Filters</button>
+    </form>
+  </div>
+
   <!-- Search Bar (Top Left, below the Navbar) 
   <div class="search-bar-container">
     <form class="form">
