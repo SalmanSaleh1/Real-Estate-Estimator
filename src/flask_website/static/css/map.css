@@ -5,45 +5,75 @@ gmp-map {
     display: block;
   }
 
-  .filter-form-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+/* Filter Form Style */
+.filter-form-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-width: 300px;
+  font-family: Arial, sans-serif;
+  color: #333;
 }
 
+/* Form Group Styling */
 .filter-form-container .form-group {
-    margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .filter-form-container label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #4a4a4a;
 }
 
-.filter-form-container input, .filter-form-container select {
-    width: 100%;
-    padding: 5px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+.filter-form-container input,
+.filter-form-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
+.filter-form-container input:focus,
+.filter-form-container select:focus {
+  border-color: #4a90e2;
+}
+
+/* Button Styles */
 .filter-form-container button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 14px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
 .filter-form-container button:hover {
-    background-color: #0056b3;
+  background-color: #357ab8;
+}
+
+/* Optional Separator for Buttons */
+.filter-form-container .button-separator {
+  margin: 15px 0;
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
 }
