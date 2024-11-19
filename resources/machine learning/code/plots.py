@@ -353,10 +353,167 @@ df.to_csv(r'C:\Users\moasl\Desktop\451\GPr\cleaned_realestate_2023_q1_cleeaned30
 
 
 
+#plots for 2023 Q1
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the 2023 Q1 dataset
+file_path_2023 = r'C:\Users\moasl\Desktop\451\GPr\cleaned_realestate_2023_q1.csv'  # Replace with your path
+df_2023 = pd.read_csv(file_path_2023)
+
+# Check for Missing Values
+print("Missing Values Analysis:")
+missing_values_2023 = df_2023.isnull().sum() / len(df_2023) * 100  # Percentage of missing values
+print(missing_values_2023)
+
+# Visualization of Missing Values
+missing_values_2023 = missing_values_2023[missing_values_2023 > 0]  # Filter columns with missing values
+if not missing_values_2023.empty:
+    missing_values_2023.plot(kind='bar', color='skyblue', figsize=(8, 5))
+    plt.title("Percentage of Missing Values by Column (2023 Q1)")
+    plt.ylabel("Percentage")
+    plt.xlabel("Columns")
+    plt.tight_layout()
+    plt.show()
+else:
+    print("No missing values found in the 2023 Q1 dataset.")
+
+# Outlier Detection
+numeric_columns_2023 = ['price', 'Price_per_square_meter']  # Columns to check for outliers
+for col in numeric_columns_2023:
+    Q1 = df_2023[col].quantile(0.25)
+    Q3 = df_2023[col].quantile(0.75)
+    IQR = Q3 - Q1  # Interquartile range
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    print(f"\nOutlier Analysis for {col}:")
+    print(f"Lower Bound: {lower_bound}, Upper Bound: {upper_bound}")
+    print(f"Outliers Count: {((df_2023[col] < lower_bound) | (df_2023[col] > upper_bound)).sum()}")
+
+    # Optionally visualize the outliers using box plots
+    plt.figure(figsize=(8, 5))
+    sns.boxplot(data=df_2023, x=col)
+    plt.title(f"Box Plot for {col} (2023 Q1)")
+    plt.show()
+
+# City Distribution
+top_cities_2023 = df_2023['city'].value_counts().head(10)  # Top 10 cities by property count
+print("\nTop Cities by Property Count (2023 Q1):")
+print(top_cities_2023)
+
+# Plot for Top Cities
+plt.figure(figsize=(10, 6))
+top_cities_2023.plot(kind='bar', color='green', alpha=0.7)
+plt.title("Top 10 Cities with Most Properties (2023 Q1)", fontsize=14)
+plt.xlabel("City", fontsize=12)
+plt.ylabel("Number of Properties", fontsize=12)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('top_cities_2023_q1.png')
+plt.show()
+
+# Area Distribution
+top_areas_2023 = df_2023['area'].value_counts().head(10)  # Top 10 areas by property count
+print("\nTop Areas by Property Count (2023 Q1):")
+print(top_areas_2023)
+
+# Plot for Top Areas
+plt.figure(figsize=(10, 6))
+top_areas_2023.plot(kind='bar', color='blue', alpha=0.7)
+plt.title("Top 10 Areas with Most Properties (2023 Q1)", fontsize=14)
+plt.xlabel("Area", fontsize=12)
+plt.ylabel("Number of Properties", fontsize=12)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('top_areas_2023_q1.png')
+plt.show()
 
 
 
 
 
+import pandas as pd
+import matplotlib.pyplot as plt
+import arabic_reshaper
+from bidi.algorithm import get_display
+
+# Load the dataset
+file_path = r'C:\Users\moasl\Desktop\451\GPr\cleaned_realestate_2022_q1.csv'  # Replace with your actual file path
+df = pd.read_csv(file_path)
+
+# Top Cities by Property Count
+top_cities = df['city'].value_counts().head(10)
+
+# Top Areas by Property Count
+top_areas = df['area'].value_counts().head(10)
+
+# Reshape Arabic text for proper display
+top_cities.index = [get_display(arabic_reshaper.reshape(str(city))) for city in top_cities.index]
+top_areas.index = [get_display(arabic_reshaper.reshape(str(area))) for area in top_areas.index]
+
+# Plot for Top Cities
+plt.figure(figsize=(10, 6))
+plt.bar(top_cities.index, top_cities.values, color='blue', alpha=0.7)
+plt.title('Top 10 Cities with Most Properties (2023 Q1)', fontsize=14)
+plt.xlabel('City', fontsize=12)
+plt.ylabel('Number of Properties', fontsize=12)
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.savefig('top_cities_2023_q1.png')
+plt.show()
+
+# Plot for Top Areas
+plt.figure(figsize=(10, 6))
+plt.bar(top_areas.index, top_areas.values, color='green', alpha=0.7)
+plt.title('Top 10 Areas with Most Properties (2023 Q1)', fontsize=14)
+plt.xlabel('Area', fontsize=12)
+plt.ylabel('Number of Properties', fontsize=12)
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.savefig('top_areas_2023_q1.png')
+plt.show()
 
 
+import pandas as pd
+
+# Load the dataset
+file_path = r'C:\Users\moasl\Desktop\451\GPr\cleaned_realestate_2022_q1.csv'  # Replace with your actual path
+df = pd.read_csv(file_path)
+
+# Insights for Regions
+top_areas = df['area'].value_counts().head(5)
+print("Top Areas by Property Count:")
+print(top_areas)
+
+# Insights for Cities
+top_cities = df['city'].value_counts().head(5)
+print("\nTop Cities by Property Count:")
+print(top_cities)
+
+# Insights for Property Types
+top_property_types = df['property_type'].value_counts().head(5)
+print("\nTop Property Types by Count:")
+print(top_property_types)
+
+# Average prices for Property Types
+avg_price_by_property_type = df.groupby('property_type')['price'].mean()
+print("\nAverage Prices by Property Type:")
+print(avg_price_by_property_type)
+
+# Insights for Property Classifications
+top_classifications = df['property_classification'].value_counts()
+print("\nProperty Classifications Count:")
+print(top_classifications)
+
+# Average prices for Property Classifications
+avg_price_by_classification = df.groupby('property_classification')['price'].mean()
+print("\nAverage Prices by Property Classification:")
+print(avg_price_by_classification)
+
+# Insights for Most Active Districts (Optional: Add specific city filter if needed)
+top_districts = df['district'].value_counts().head(5)
+print("\nTop Districts by Property Count:")
+print(top_districts)
