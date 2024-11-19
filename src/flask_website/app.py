@@ -6,7 +6,7 @@ import requests  # Import requests for making HTTP calls
 import db_connection
 from db_classes import Property
 from api import api_blueprint  # Import the API blueprint
-from test_insertion import TestInsertion
+from test_insertion import TestInsertion, BackendTest
 
 # Load environment variables
 load_dotenv()
@@ -60,7 +60,7 @@ def get_property_details(id_object):
         return jsonify({'error': 'Property not found'}), 404
 
 # Route to run unit tests for insertion functionality
-@app.route('/run_tests', methods=['GET'])
+@app.route('/run_script', methods=['GET'])
 def run_tests():
     try:
         # Create a test suite
@@ -76,6 +76,43 @@ def run_tests():
             return jsonify({"error": "Test execution failed"}), 500
     except Exception as e:
         return jsonify({"error": f"Test execution failed: {str(e)}"}), 500
+
+
+# Route to run backend unit tests for SQL, API, and app functionality
+@app.route('/run_backend_tests', methods=['GET'])
+def run_backend_tests():
+    try:
+        # Create a test suite
+        suite = unittest.TestLoader().loadTestsFromTestCase(BackendTest)
+
+        # Capture the test results
+        test_results = []
+        class TestResultHandler(unittest.TextTestResult):
+            def addSuccess(self, test):
+                super().addSuccess(test)
+                test_results.append({"test": str(test), "status": "success"})
+
+            def addFailure(self, test, err):
+                super().addFailure(test, err)
+                test_results.append({"test": str(test), "status": "failure", "error": self._exc_info_to_string(err, test)})
+
+            def addError(self, test, err):
+                super().addError(test, err)
+                test_results.append({"test": str(test), "status": "error", "error": self._exc_info_to_string(err, test)})
+
+        # Run the test suite with a custom result handler
+        runner = unittest.TextTestRunner(resultclass=TestResultHandler, verbosity=2)
+        result = runner.run(suite)
+
+        # Check if tests passed or failed
+        if result.wasSuccessful():
+            return jsonify({"message": "All tests passed successfully", "results": test_results}), 200
+        else:
+            return jsonify({"message": "Some tests failed", "results": test_results}), 500
+
+    except Exception as e:
+        return jsonify({"error": f"Test execution failed: {str(e)}"}), 500
+
 
 # Run the application
 if __name__ == '__main__':
