@@ -6,7 +6,7 @@ import requests  # Import requests for making HTTP calls
 import db_connection
 from db_classes import Property
 from api import api_blueprint  # Import the API blueprint
-from test_insertion import TestInsertion, BackendTest
+from tests import TestInsertion, BackendTest
 
 # Load environment variables
 load_dotenv()
@@ -71,7 +71,7 @@ def run_tests():
 
         # Check if tests passed or failed
         if result.wasSuccessful():
-            return jsonify({"message": "Tests ran successfully"}), 200
+            return jsonify({"message": "Tests insertion script run successfully"}), 200
         else:
             return jsonify({"error": "Test execution failed"}), 500
     except Exception as e:
