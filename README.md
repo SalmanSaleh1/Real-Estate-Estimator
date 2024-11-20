@@ -1,5 +1,13 @@
 # Real Estate Estimator
 
+## Overview
+This project provides a **machine learning-driven solution** for estimating real estate prices tailored to the Saudi Arabian market. It incorporates **Geographic Information System (GIS)** integration and advanced algorithms to enhance the accuracy and transparency of property valuations.
+
+### Key Features
+- **Accurate Price Estimation:** Uses historical transaction data and real-time economic indicators.
+- **GIS Integration:** Visualizes property data spatially for better context and decision-making.
+- **Interactive Web Application:** Built using Flask with a user-friendly interface.
+- **Scalable Design:** Enables future feature expansion and extensibility.
 
 
 ---
@@ -126,3 +134,24 @@ Once the application is running, open your web browser and navigate to:
 ```
 http://localhost:5000
 ```
+
+## Objectives
+
+- Enhance transparency in property transactions.
+- Enable efficient and informed decision-making for buyers and sellers.
+- Provide a scalable and intuitive tool for real estate price estimation.
+
+## Team Members
+
+- **Yazeed Asim Alramadi**
+- **Salman Saleh Alkhalifah**
+- **Mohammed Ali Aldubayyan**
+- **Abdulrrahman Alowaymir**
+
+### Supervisor
+
+- **Dr. Ziyad Alsaeed**
+
+## Acknowledgments
+
+This project was developed as part of the **Information Technology** curriculum at **Qassim University**.
