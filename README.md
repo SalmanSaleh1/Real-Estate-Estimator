@@ -10,33 +10,55 @@ Follow the steps below to set up and run the application.
 
 ---
 
-### Prerequisites
+# Project Setup Instructions
 
-1. **Install Docker**  
-   Ensure Docker is installed and running on your machine.  
-   You can download it from [Docker's official site](https://www.docker.com/).
+## 1. Install Docker
+Ensure Docker is installed and running on your machine.  
+You can download it from [Docker's official site](https://www.docker.com/).
 
-2. **Download Required Files**  
-   Download or place the following files in the specified locations within the project directory:
+## 2. Download Required Files
+Download or place the following files in the specified locations within the project directory:
 
-   - **GeoJSON file for property information**  
-     - **File Name:** `Formated_final.json`  
-     - **Download Link:** [Formated_final.json](https://drive.google.com/file/d/...)  
-     - **Path:** `src/flask_website/static/geojson/Formated_final.json`
+- **GeoJSON file for property information**  
+  - **File Name:** `property_info.json`  
+  - **Download Link:** [property_info.json](https://drive.google.com/file/d/1P8Jz38rqcvRTIWVhsulRwEYPMhmLBLLW/view?usp=sharing)  
+  - **Path:** `src/flask_website/static/geojson/property_info.json`
 
-   - **City district and mukatat data with area**  
-     - **File Name:** `city_district_mukatats_with_area.json`
-     - **Download Link:** [city_district_mukatats_with_area.json](https://drive.google.com/file/d/...)  
-     - **Path:** `src/flask_website/static/geojson/city_district_mukatats_with_area.json`
+- **Machine learning model for predicting prices**  
+  - **File Name:** `catboost_model.cbm`  
+  - **Download Link:** [catboost_model.cbm](https://drive.google.com/file/d/1myz3mPqhwMA8huZfYJAZlnzpqlqgxp9p/view?usp=sharing)  
+  - **Path:** `src/flask_website/catboost_model.cbm`
 
-   - **Machine learning model for predicting prices**  
-     - **File Name:** `final_catboost_property_model_tunedNov5_925.cbm`
-     - **Download Link:** [final_catboost_property_model_tunedNov5_925.cbm](https://drive.google.com/file/d/...)  
-     - **Path:** `src/flask_website/final_catboost_property_model_tunedNov5_925.cbm`
+- **Environment file**  
+  - **File Name:** `.env`  
+  - **Instructions to create the file:** See the [Environment Configuration](#environment-configuration) section below.
 
-   - **Environment file**  
-     - **File Name:** `.env`  
-     - **Instructions to create the file:** See the [Environment Configuration](#environment-configuration) section below.
+## 3. Add Google Maps API Key
+You need to configure the Google Maps API key for the project by updating the following files:
+
+- **File 1:** `\flask_website\templates\home.html`  
+  - **Line Number:** 141  
+  - **Instruction:** Replace the placeholder key with your Google Maps API key in the `<gmpx-api-loader>` tag.  
+  - Example:  
+    ```html
+    <!-- Google Maps API Loader -->
+    <gmpx-api-loader key="YOUR_GOOGLE_MAPS_API_KEY" solution-channel="GMP_GE_mapsandplacesautocomplete_v1"></gmpx-api-loader>
+    ```
+
+- **File 2:** `\flask_website\static\js\map.js`  
+  - **Line Number:** 19  
+  - **Instruction:** Update the map ID key and configure map options.  
+  - Example:  
+    ```javascript
+    // Set map options (e.g., disable map type control, set Map ID)
+    map.innerMap.setOptions({
+        mapTypeControl: false,
+        mapId: 'YOUR_MAP_ID' // Add your Map ID here
+    });
+    ```
+
+- **Documentation for Google Maps API:**  
+  - Visit the [Google Maps API Documentation](https://developers.google.com/maps/documentation/javascript/get-api-key) for detailed instructions on obtaining and managing your API key.
 
 ---
 
