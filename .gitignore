@@ -13,5 +13,3 @@ instance/
 .vscode/
 
 # Data files
-*.json
-*.cbm
