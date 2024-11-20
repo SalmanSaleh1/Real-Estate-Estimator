@@ -115,8 +115,8 @@
 
       let cityDistrictMukatatsWithArea = {}; // Variable to hold the loaded JSON data
 
-      // Fetch city_district_mukatats_with_area.json
-      fetch('/static/geojson/city_district_mukatats_with_area.json') // Adjusted path
+      // Fetch detailed_properies.json
+      fetch('/static/geojson/detailed_properies.json') // Adjusted path
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to load JSON');
