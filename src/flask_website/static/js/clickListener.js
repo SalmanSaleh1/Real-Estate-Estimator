@@ -5,10 +5,10 @@ function addClickListener(map) {
     }
 
     map.innerMap.data.addListener('click', async function (event) {
-        const idObject = event.feature.getProperty('OBJECTID');
-        const district = event.feature.getProperty('DISTRICT_NAME_D') || "Not available";
-        const parcelNo = event.feature.getProperty('PARCEL_NO') || "Parcel Number";
-        const shapeArea = event.feature.getProperty('SHAPE.AREA') || "Not available";
+        const idObject = event.feature.getProperty('id_object');
+        const district = event.feature.getProperty('district_name') || "Not available";
+        const parcelNo = event.feature.getProperty('parcel_no') || "Parcel Number";
+        const shapeArea = event.feature.getProperty('shape_area') || "Not available";
 
         const popupTemplate = document.getElementById('popup-template').cloneNode(true);
         popupTemplate.style.display = 'block';

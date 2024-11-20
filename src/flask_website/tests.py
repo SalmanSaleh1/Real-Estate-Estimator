@@ -37,7 +37,7 @@ class TestInsertion(unittest.TestCase):
     def test_insert_properties_from_geojson(self):
         """Test inserting data from a GeoJSON file into the properties table"""
         geojson_file = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), 'static/geojson/Formated_final.json')
+            os.path.join(os.path.dirname(__file__), 'static/geojson/property_info.json')
         )
 
         # Load the GeoJSON data
@@ -67,33 +67,33 @@ class TestInsertion(unittest.TestCase):
                         # Extract and clean data from GeoJSON properties
                         properties = feature['properties']
 
-                        price_per_sqm_raw = properties.get('Price_per_square_meter')
+                        price_per_sqm_raw = properties.get('price_per_square_meter')
                         price_per_sqm = float(price_per_sqm_raw) if price_per_sqm_raw else None
 
-                        shape_area_raw = properties.get('SHAPE.AREA')
+                        shape_area_raw = properties.get('shape_area')
                         shape_area = float(shape_area_raw.replace(',', '')) if shape_area_raw else None
 
-                        muncp_id = int(properties.get('MUNCP_ID')) if properties.get('MUNCP_ID') else None
+                        muncp_id = int(properties.get('muncp_id')) if properties.get('muncp_id') else None
 
                         # Prepare data for bulk insertion
                         insert_data.append({
                             'shape_area': shape_area,
-                            'owner_name': properties.get('OWNERNAME'),
-                            'parcel_land_use': properties.get('PARCEL_LANDUSE'),
-                            'district_name': properties.get('DISTRICT_NAME_D'),
-                            'subdiv_name': properties.get('SUBDIV_NAME'),
-                            'city_name': properties.get('CITY_NAME'),
-                            'muncp_name': properties.get('MUNCP_NAME'),
-                            'parcel_status': properties.get('PARCEL_STATUS'),
+                            'owner_name': properties.get('owner_name'),
+                            'parcel_land_use': properties.get('parcel_land_use'),
+                            'district_name': properties.get('district_name'),
+                            'subdiv_name': properties.get('subdiv_name'),
+                            'city_name': properties.get('city_name'),
+                            'muncp_name': properties.get('muncp_name'),
+                            'parcel_status': properties.get('parcel_status'),
                             'muncp_id': muncp_id,
-                            'block_no': properties.get('BLOCK_NO'),
-                            'subdiv_no': properties.get('SUBDIV_NO'),
-                            'parcel_no': properties.get('PARCEL_NO'),
-                            'subdiv_type': properties.get('SUBDIV_TYPE') or None,
-                            'muncp_desc': properties.get('MUNCP_DESC'),
-                            'id_object': properties.get('OBJECTID'),
+                            'block_no': properties.get('block_no'),
+                            'subdiv_no': properties.get('subdiv_no'),
+                            'parcel_no': properties.get('parcel_no'),
+                            'subdiv_type': properties.get('subdiv_type') or None,
+                            'muncp_desc': properties.get('muncp_desc'),
+                            'id_object': properties.get('id_object'),
                             'property_type': properties.get('property_type'),
-                            'Price_per_square_meter': price_per_sqm,
+                            'price_per_square_meter': price_per_sqm,
                             'area': properties.get('area')
                         })
                         success_count += 1
@@ -157,7 +157,7 @@ class BackendTest(unittest.TestCase):
                 'subdiv_type': 'خاص',
                 'muncp_desc': 'بلدية الديرة',
                 'property_type': 'أرض',
-                'Price_per_square_meter': 150.0,
+                'price_per_square_meter': 150.0,
                 'area': 'منطقة القصيم'
             }
 

@@ -84,7 +84,7 @@ def get_info(object_id):
                 "space": property_details.shape_area,
                 "property_classification": property_details.parcel_land_use,
                 "property_type": property_details.property_type, 
-                "price_per_square_meter":property_details.Price_per_square_meter,
+                "price_per_square_meter":property_details.price_per_square_meter,
             }
         else:
             return {"error": "Property not found"}

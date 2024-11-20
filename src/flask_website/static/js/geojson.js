@@ -59,7 +59,7 @@ async function loadGeoJSON(map) {
 
         cachedGeoJSONData = await getGeoJSONFromDB();
         if (!cachedGeoJSONData) {
-            const response = await fetch('/static/geojson/Formated_final.json');
+            const response = await fetch('/static/geojson/property_info.json');
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             cachedGeoJSONData = await response.json();
 
@@ -103,7 +103,7 @@ function applyFilters(map, geojsonData) {
 
     const filteredFeatures = geojsonData.features.filter((feature) => {
         const { ESTIMATED_PRICE, property_type } = feature.properties;
-        const shapeArea = parseFloat(feature.properties["SHAPE.AREA"] || "0");
+        const shapeArea = parseFloat(feature.properties["shape_area"] || "0");
 
         console.log(`Feature: Price=${ESTIMATED_PRICE}, Type=${property_type}, Area=${shapeArea}`);
 
