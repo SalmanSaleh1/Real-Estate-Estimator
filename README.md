@@ -147,10 +147,10 @@ http://localhost:5000
 
 ## Team Members
 
-- **Yazeed Asim Alramadi**
-- **Salman Saleh Alkhalifah**
-- **Mohammed Ali Aldubayyan**
-- **Abdulrrahman Alowaymir**
+- **Yazeed Asim Alramadi** yazeedalramadi@gmail.com
+- **Salman Saleh Alkhalifah** salmansalehkh@outlook.com
+- **Mohammed Ali Aldubayyan** m_aldubayyan@outlook.com
+- **Abdulrrahman Alowaymir**  a.alowaymir@gmail.com
 
 ### Supervisor
 
