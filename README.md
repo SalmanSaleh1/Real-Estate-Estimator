@@ -106,9 +106,8 @@ SECRET_KEY=my_secret_key_here
 │   ├── flask_website/
 │   │   ├── static/
 │   │   │   ├── geojson/
-│   │   │   │   ├── Formated_final.json
-│   │   │   │   ├── city_district_mukatats_with_area.json
-│   │   ├── final_catboost_property_model_tunedNov5_925.cbm
+│   │   │   │   ├── property_info.json
+│   │   ├── catboost_model.cbm
 │   ├── docker-compose.yml
 │   ├── .env
 ```
