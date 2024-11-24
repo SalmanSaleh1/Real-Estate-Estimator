@@ -78,9 +78,8 @@ You need to configure the Google Maps API key for the project by updating the fo
 - **Documentation for Google Maps API:**  
   - Visit the [Google Maps API Documentation](https://developers.google.com/maps/documentation/javascript/get-api-key) for detailed instructions on obtaining and managing your API key.
 
----
 
-### Environment Configuration
+## 4. Environment Configuration
 
 Create a `.env` file in the root project directory with the following structure:
 
