@@ -6,7 +6,8 @@ import requests  # Import requests for making HTTP calls
 import db_connection
 from db_classes import Property
 from api import api_blueprint  # Import the API blueprint
-from tests import TestInsertion, BackendTest
+from tests.test_insertion import TestInsertion
+from tests.test_backend import BackendTest
 
 # Load environment variables
 load_dotenv()
@@ -17,7 +18,7 @@ app = Flask(__name__, static_url_path='/static')
 # Register the API blueprint with the '/api' prefix
 app.register_blueprint(api_blueprint, url_prefix='/api')
 
-# Database connections
+# Database connections (assuming db_connection contains these values)
 app = db_connection.app
 db = db_connection.db
 bcrypt = db_connection.bcrypt
@@ -63,7 +64,7 @@ def get_property_details(id_object):
 @app.route('/run_script', methods=['GET'])
 def run_tests():
     try:
-        # Create a test suite
+        # Create a test suite for insertion functionality
         suite = unittest.TestLoader().loadTestsFromTestCase(TestInsertion)
 
         # Run tests and capture the results
@@ -82,11 +83,12 @@ def run_tests():
 @app.route('/run_backend_tests', methods=['GET'])
 def run_backend_tests():
     try:
-        # Create a test suite
+        # Create a test suite for backend functionality
         suite = unittest.TestLoader().loadTestsFromTestCase(BackendTest)
 
         # Capture the test results
         test_results = []
+        
         class TestResultHandler(unittest.TextTestResult):
             def addSuccess(self, test):
                 super().addSuccess(test)
