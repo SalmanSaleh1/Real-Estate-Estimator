@@ -39,12 +39,12 @@ Download or place the following files in the specified locations within the proj
 
 - **GeoJSON file for property information**  
   - **File Name:** `property_info.json`  
-  - **Download Link:** [property_info.json](https://drive.google.com/file/d/1P8Jz38rqcvRTIWVhsulRwEYPMhmLBLLW/view?usp=sharing)  
+  - **Download Link:** [property_info.json](https://drive.google.com/file/d/1G_8YxxMcJjiOXL6k3BFvcZHJ64KvhfXc/view?usp=sharing)  
   - **Path:** `src/flask_website/static/geojson/property_info.json`
 
 - **Machine learning model for predicting prices**  
   - **File Name:** `catboost_model.cbm`  
-  - **Download Link:** [catboost_model.cbm](https://drive.google.com/file/d/1myz3mPqhwMA8huZfYJAZlnzpqlqgxp9p/view?usp=sharing)  
+  - **Download Link:** [catboost_model.cbm](https://drive.google.com/file/d/1bKGsTv_tExkr4ChJ6GJzTw2rYAnay0ZC/view?usp=sharing)  
   - **Path:** `src/flask_website/catboost_model.cbm`
 
 - **Environment file**  
