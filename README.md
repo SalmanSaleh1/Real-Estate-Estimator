@@ -1,4 +1,4 @@
-# Estimator: ML-Powered Real Estate Pricing
+![logo (2)](https://github.com/user-attachments/assets/b5f670c8-213d-4118-802a-6b3e651b1200)
 
 
 ## Overview
