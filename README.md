@@ -1,5 +1,5 @@
-![logo (2)](https://github.com/user-attachments/assets/b5f670c8-213d-4118-802a-6b3e651b1200)
 
+![Logo](https://github.com/user-attachments/assets/b5881c06-a810-4e4d-ac29-750c350e15a1)
 
 ## Overview
 This project provides a **machine learning-driven solution** for estimating real estate prices tailored to the Saudi Arabian market. It incorporates **Geographic Information System (GIS)** integration and advanced algorithms to enhance the accuracy and transparency of property valuations.
