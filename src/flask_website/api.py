@@ -17,8 +17,8 @@ bcrypt = db_connection.bcrypt
 # Load the CatBoost model
 catboost_model = load_catboost_model()
 
-# Prediction function
-def predict_property_value(area, city, district, Mukatat, space, property_classification, property_type, Price_per_square_meter=None):
+# Define function for prediction (using the same formula as in your script)
+def predict_property_value(area, city, district, Mukatat, space, property_classification, property_type, price_per_square_meter=None):
     # Prepare data dictionary for prediction
     data = {
         'area': [area],
@@ -28,24 +28,46 @@ def predict_property_value(area, city, district, Mukatat, space, property_classi
         'property_classification': [property_classification],
         'property_type': [property_type],
         'space': [space],
-        'log_space': [np.log1p(space)]
+        'log_space': [np.log1p(space)]  # Apply log(1 + space)
     }
 
-    if Price_per_square_meter is not None:
-        data['Price_per_square_meter'] = [Price_per_square_meter]
+    if price_per_square_meter is not None:
+        data['Price_per_square_meter'] = [price_per_square_meter]
 
+    # Create DataFrame
     new_data = pd.DataFrame(data)
-    new_data = new_data.reindex(columns=catboost_model.feature_names_, fill_value="unknown")
-    
-    categorical_features = ['area', 'city', 'district', 'Mukatat', 'property_classification', 'property_type', 'Price_per_square_meter']
-    for col in categorical_features:
-        if col in new_data.columns:
-            new_data[col] = new_data[col].astype(str)
-    
-    input_pool = Pool(new_data, cat_features=categorical_features)
+
+    # Rename columns to match the model's expected features
+    new_data.rename(columns={
+        'area': 'area',
+        'city': 'city',
+        'district': 'district',
+        'Mukatat': 'Mukatat',
+        'property_classification': 'property_classification',
+        'property_type': 'property_type',
+        'Price_per_square_meter': 'Price_per_square_meter',
+        'space': 'space',
+        'log_space': 'log_space'
+    }, inplace=True)
+
+    # Define categorical columns
+    categorical_columns = ['area', 'city', 'district', 'Mukatat', 'property_classification', 'property_type', 'Price_per_square_meter']
+
+    # Ensure categorical columns are strings
+    for col in categorical_columns:
+        new_data[col] = new_data[col].astype(str)
+
+    # Ensure numerical columns are floats
+    new_data['space'] = float(new_data['space'])
+    new_data['log_space'] = np.log1p(new_data['space'])
+
+    # Prepare data for CatBoost model
+    input_pool = Pool(new_data, cat_features=categorical_columns)
+
+    # Predict log price and convert it back
     log_price_pred = catboost_model.predict(input_pool)
-    predicted_price = np.expm1(log_price_pred)
-    
+    predicted_price = np.expm1(log_price_pred)  # Convert back from log scale
+
     return predicted_price[0]
 
 # Prediction API endpoint
@@ -62,16 +84,16 @@ def ml_api(object_id):
             district=property_info['district'],
             Mukatat=property_info['Mukatat'],
             space=float(property_info['space']),
-            property_classification=property_info.get('property_classification', None),
-            property_type=property_info.get('property_type', None),
-            Price_per_square_meter=property_info.get('Price_per_square_meter', None)
+            property_classification=property_info.get('property_classification', 'unknown'),
+            property_type=property_info.get('property_type', 'unknown'),
+            price_per_square_meter=property_info.get('price_per_square_meter', None)
         )
         return jsonify({"predicted_price": prediction})
 
     except Exception as e:
         return jsonify({"error": f"Model prediction failed: {e}"}), 500
 
-# Database retrieval function
+# Database retrieval function (same as your previous version)
 def get_info(object_id):
     try:
         property_details = Property.query.filter_by(id_object=object_id).first()
@@ -83,8 +105,8 @@ def get_info(object_id):
                 "Mukatat": property_details.subdiv_no,
                 "space": property_details.shape_area,
                 "property_classification": property_details.parcel_land_use,
-                "property_type": property_details.property_type, 
-                "price_per_square_meter":property_details.price_per_square_meter,
+                "property_type": property_details.property_type,
+                "price_per_square_meter": property_details.price_per_square_meter,
             }
         else:
             return {"error": "Property not found"}
