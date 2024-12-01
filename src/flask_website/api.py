@@ -31,8 +31,12 @@ def predict_property_value(area, city, district, Mukatat, space, property_classi
         'log_space': [np.log1p(space)]  # Apply log(1 + space)
     }
 
+    # If price_per_square_meter is provided, include it in the data dictionary
     if price_per_square_meter is not None:
         data['Price_per_square_meter'] = [price_per_square_meter]
+    else:
+        # If price_per_square_meter is not provided, set a default value (e.g., 0)
+        data['Price_per_square_meter'] = [0]  # You can change this value if needed
 
     # Create DataFrame
     new_data = pd.DataFrame(data)
@@ -49,6 +53,7 @@ def predict_property_value(area, city, district, Mukatat, space, property_classi
         'space': 'space',
         'log_space': 'log_space'
     }, inplace=True)
+    
 
     # Define categorical columns
     categorical_columns = ['area', 'city', 'district', 'Mukatat', 'property_classification', 'property_type', 'Price_per_square_meter']
@@ -124,20 +129,13 @@ def test_prediction():
             Mukatat="1017",
             property_classification="سكني",
             property_type="قطعة أرض",
-            space=400.0
+            space=400.0,
+            price_per_square_meter=163  # Add this line
         )
         return jsonify({"predicted_price": predicted_price})
     except Exception as e:
-        return jsonify({"error": f"Test prediction failed: {e}"}), 500
+        return jsonify({"error": f"Test prediction failed: {str(e)}"}), 500
 
-@api_blueprint.route('/test', methods=['GET'])
-def test():
-    try:
-        return render_template_string("<html><body><h1>Hello, World!</h1></body></html>")
-    except Exception as e:
-        return jsonify({"error": f"Test prediction failed: {e}"}), 500
-
-# Route to estimator.html 
 @api_blueprint.route('/estimate_price', methods=['POST'])
 def estimate_price():
     try:
@@ -168,6 +166,7 @@ def estimate_price():
         return jsonify({"predicted_price": predicted_price}), 200
 
     except Exception as e:
+        # Log the error or print the full traceback
         return jsonify({"error": f"Prediction failed: {str(e)}"}), 500
         
 # Register the blueprint with a URL prefix
