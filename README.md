@@ -111,6 +111,16 @@ SECRET_KEY=my_secret_key_here
 │   ├── .env
 ```
 
+## 5. Run Backend Unit Tests
+
+- To test SQL, API, and app functionality, use the route:  
+  `http://localhost:5000/run_backend_tests`
+
+- To test insertion functionality (ensure `property_info.json` is in the files), use the route:  
+  `http://localhost:5000/run_script`
+
+**Important:** Ensure the `property_info.json` file is in the files before running `/run_script` for the machine learning API to function correctly.
+
 ---
 
 ### Setup Instructions
