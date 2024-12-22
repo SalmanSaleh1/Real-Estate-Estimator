@@ -7,7 +7,7 @@ WTForms==3.0.1
 pymysql==1.1.0
 cryptography==41.0.3
 catboost==1.1.1
-scikit-learn==1.2.2
+scikit-learn==1.5.0
 numpy==1.23.5
 pandas==2.0.3
 SQLAlchemy==2.0.21
